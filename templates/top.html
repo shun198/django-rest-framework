@@ -31,7 +31,7 @@
     <div class="text-center mt-4 p-4 offset-3 col-6">
       <h1>{{weather.location}}</h1>
       <div class="p-2 bg-light border">
-        <button onclick="getData({{weather.id}})" class="btn btn-primary">
+        <button onclick="getData({{weather.id:wq}})" class="btn btn-primary">
           {{weather.location}}の最新の情報を取得
         </button>
         <h2 class="p-4">天気</h2>
