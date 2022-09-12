@@ -10,7 +10,7 @@ class Place(models.Model):
         db_table = "Place"
 
     def __str__(self):
-        return self.name
+        return self.address
 
 
 class Restaurant(models.Model):
