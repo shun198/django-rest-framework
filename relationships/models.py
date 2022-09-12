@@ -42,10 +42,29 @@ class Reporter(models.Model):
         db_table = "Reporter"
 
 
+class Publication(models.Model):
+    class Company(models.TextChoices):
+        NIKKEI = "日系"
+        ASAHI = "朝日"
+
+    title = models.CharField(max_length=30)
+    company = models.CharField(
+        max_length=6, choices=Company.choices, default=Company.ASAHI
+    )
+    # titleの順に並び替える
+    class Meta:
+        db_table = "Publication"
+        ordering = ["title"]
+
+    def __str__(self):
+        return self.title
+
+
 class Article(models.Model):
     headline = models.CharField(max_length=100)
     pub_date = models.DateField()
     reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
+    publications = models.ManyToManyField(Publication)
 
     def __str__(self):
         return self.headline
