@@ -1,0 +1,29 @@
+# ==== Commit Messages ==============
+:+1: add views to cfe
+# ==== Commit Messages(Template) ====
+# :emoji: #Issue番号 変更内容
+# 例) :+1: #438 コメント追加
+#       👍 #438 コメント追加
+# ==== Emojis ====
+# 🐛 :bug: バグ修正
+# 例：🐛 #10 未登録のメールアドレスが入力された場合に500エラーとなる箇所を改修
+# ✨ :sparkles: 新規機能(ファイル)の追加
+# 例：✨ #2 faviconファイルの追加、及び、設定
+# 👍 :+1: 機能修正（バグではない）
+# 例：👍 #9 nameのプレースホルダを「氏名」から「お名前」に変更
+# 🚿：:shower: 不要な機能（ファイル）の削除
+# 例：🚿 #30 未使用の関数「set_name」を削除
+# ♻️ :recycle: リファクタリング（同じ挙動を担保した上での変更）
+# 例：♻️ #30 n+1問題が発生していたループをeager_loadに変更
+# ✅ :white_check_mark: テストの追加
+# 例：✅ #30 Userモデルのテストを追加
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch feature/rest_framework_tutorial
+# Changes to be committed:
+#	modified:   api/models.py
+#	modified:   api/urls.py
+#	modified:   api/views.py
+#	modified:   cfehome/urls.py
+#
