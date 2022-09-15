@@ -146,5 +146,5 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "詳細",
     "VERSION": "1.0.0",
     # オプション
-    # 'SERVE_INCLUDE_SCHEMA': False,
+    'SERVE_INCLUDE_SCHEMA': False,
 }

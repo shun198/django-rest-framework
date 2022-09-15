@@ -11,7 +11,7 @@ class Place(models.Model):
         db_table = "Place"
 
     def __str__(self):
-        return self.address
+        return self.name
 
 
 # class Restaurant(models.Model):
