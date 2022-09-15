@@ -42,10 +42,12 @@ services:
   
   celery:
     container_name: celery
+    # djangoのDockerfileを指定
     build:
       context: .
       dockerfile: containers/django/Dockerfile
-    command: celery -A crm worker -l info
+    # celery -A r<アプリケーション名> worker -l info
+    command: celery -A relationships worker -l info
     volumes:
       - .:/code
     env_file:
@@ -55,10 +57,12 @@ services:
   
   celery-beat:
     container_name: celery-beat
+    # djangoのDockerfileを指定
     build:
       context: .
       dockerfile: containers/django/Dockerfile
-    command: celery -A crm beat -l info
+    # celery -A <アプリケーション名> beat -l info
+    command: celery -A relationships beat -l info
     volumes:
       - .:/code
     env_file:
