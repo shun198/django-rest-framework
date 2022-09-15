@@ -33,6 +33,38 @@ services:
       - ./.env
     depends_on:
       - db
+      - redis
+      # db:
+      #   condition: service_healthy
+  redis:
+    container_name: redis
+    image: redis:alpine
+  
+  celery:
+    container_name: celery
+    build:
+      context: .
+      dockerfile: containers/django/Dockerfile
+    command: celery -A crm worker -l info
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
+  
+  celery-beat:
+    container_name: celery-beat
+    build:
+      context: .
+      dockerfile: containers/django/Dockerfile
+    command: celery -A crm beat -l info
+    volumes:
+      - .:/code
+    env_file:
+      - ./.env
+    depends_on:
+      - redis
 volumes:
   db_data:
   static:
