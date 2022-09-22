@@ -45,13 +45,13 @@ class Reporter(models.Model):
 
 
 class Publication(models.Model):
-    class Company(models.TextChoices):
-        NIKKEI = "日系"
-        ASAHI = "朝日"
+    class Company(models.IntegerChoices):
+        NIKKEI = 1
+        ASAHI = 2
 
     title = models.CharField(max_length=30)
-    company = models.CharField(
-        max_length=6, choices=Company.choices, default=Company.ASAHI
+    company = models.IntegerField(
+        choices=Company.choices, default=Company.ASAHI
     )
     # titleの順に並び替える
     class Meta:
