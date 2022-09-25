@@ -1,7 +1,15 @@
-from django.urls import path
-from rest_framework.routers import DefaultRouter
-from .views import PlaceAPIView
+from django.urls import path, include
+from rest_framework_nested import routers
+from .views import CustomerViewSets,BookViewSets
 
+# Create a router and register our viewsets with it.
+router = routers.DefaultRouter()
+router.register(r'customers', CustomerViewSets,basename="customer")
+customer_router = routers.NestedDefaultRouter(router,r"customers",lookup="customer")
+customer_router.register(r'books', BookViewSets, basename='book')
+
+# The API URLs are now determined automatically by the router.
 urlpatterns = [
-    path("place/<str:pk>/", PlaceAPIView.as_view()),
+    path(r'', include(router.urls)),
+    path(r'', include(customer_router.urls)),
 ]

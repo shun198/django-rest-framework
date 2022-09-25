@@ -1,12 +1,15 @@
-from wsgiref.validate import validator
-from rest_framework.generics import RetrieveAPIView
+from rest_framework import viewsets
 
-from .serializers import PlaceSerializer
-from .models import Place
+from .serializers import CustomerSerializer,BookSerializer
+from .models import Customer,Book
 
 # Create your views here.
-class PlaceAPIView(RetrieveAPIView):
-    queryset = Place.objects.all()
-    serializer_class = PlaceSerializer
+class CustomerViewSets(viewsets.ModelViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
+    
+class BookViewSets(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
     
