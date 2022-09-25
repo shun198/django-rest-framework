@@ -1,3 +1,4 @@
+from wsgiref.validate import validator
 from rest_framework.generics import RetrieveAPIView
 
 from .serializers import PlaceSerializer
@@ -7,3 +8,5 @@ from .models import Place
 class PlaceAPIView(RetrieveAPIView):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
+
+    

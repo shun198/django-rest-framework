@@ -14,73 +14,15 @@ class Place(models.Model):
     def __str__(self):
         return self.name
 
-
-class Restaurant(models.Model):
-    place = models.OneToOneField(
-        Place,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
-    serves_hot_dogs = models.BooleanField(default=False)
-    serves_pizza = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ["place"]
-        db_table = "Restaurant"
-
-    def __str__(self):
-        return self.name
-
-
-class Reporter(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.EmailField()
-
-    def __str__(self):
-        return f"{self.first_name}" + " " + f"{self.last_name}"
-
-    class Meta:
-        db_table = "Reporter"
-
-
-class Publication(models.Model):
-    class Company(models.IntegerChoices):
-        NIKKEI = 1
-        ASAHI = 2
-
-    title = models.CharField(max_length=30)
-    company = models.IntegerField(
-        choices=Company.choices, default=Company.ASAHI
-    )
-    # titleの順に並び替える
-    class Meta:
-        db_table = "Publication"
-        ordering = ["title"]
-
-    def __str__(self):
-        return self.title
-
-
-class Article(models.Model):
-    headline = models.CharField(max_length=100)
-    pub_date = models.DateField()
-    reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
-    publications = models.ManyToManyField(Publication)
-
-    def __str__(self):
-        return self.headline
-
-    # headlineの順に並び替える
-    class Meta:
-        db_table = "Article"
-        ordering = ["headline"]
-
-
-class Fruits(models.Model):
+class Book(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=100)
-    price = models.IntegerField()
+    title = models.CharField(verbose_name="タイトル",max_length=20,unique=True)
+    price = models.IntegerField(verbose_name="価格",null=True,blank=True)
+    created_at = models.DateTimeField(verbose_name="登録日付",auto_now_add=True)
+    
+    class Meta:
+        ordering = ["title"]
+        db_table = "Book"
 
     def __str__(self):
         return self.name
