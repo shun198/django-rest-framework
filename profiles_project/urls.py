@@ -1,7 +1,7 @@
 """profiles_project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
+    https://docs.djangoproject.com/en/3.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -24,7 +24,7 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/",include("profiles_api.urls")),
+    path("api/", include("profiles_api.urls")),
     # 127.0.0.1/8000/api/schema にアクセスするとテキストファイルをダウンロードできます
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # SwaggerUIの設定
