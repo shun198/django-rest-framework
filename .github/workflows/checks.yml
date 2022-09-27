@@ -1,0 +1,18 @@
+# GitHub Actionsに表示される名前
+name: Checks
+# トリガー(pushした時にジョブを実行する)
+on: [push]
+# ジョブを定義
+jobs:
+  # ジョブのID名
+  test-lint:
+    # GitHub Jobs interfaceに表示される名前
+    name: Test and Lint
+    # runner(ジョブを起動するOSの名前)
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Login to Docker Hub
+        users: docker/login-action@v1
+        with:
+          username: $({ secrets.DOCKERHUB_USER })
+          password: $({ secrets.DOCKERHUB_TOKEN})
