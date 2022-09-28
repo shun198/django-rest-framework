@@ -1,5 +1,3 @@
-from math import perm
-from urllib import request
 from rest_framework import permissions
 
 
