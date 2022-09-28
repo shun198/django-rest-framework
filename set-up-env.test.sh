@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# DB
+echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
+echo "MYSQL_USER=$MYSQL_USER" >> .env
+echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env
+echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env
+echo "DB_HOST=$DB_HOST" >> .env
