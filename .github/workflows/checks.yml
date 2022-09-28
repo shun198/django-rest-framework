@@ -18,14 +18,15 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN}}
       - name: Checkout
         uses: actions/checkout@v2
+        run: chmod +x set-up-env.test.sh && sh set-up-env.test.sh
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
       - name: Test
         # run: docker-compose exec app python manage.py test
         run: docker-compose run --rm app sh -c "python manage.py test"
-        env:
-          MYSQL_ROOT_PASSWORD: ${{ secrets.TEST_MYSQL_ROOT_PASSWORD }}
-          MYSQL_USER: ${{ secrets.TEST_MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.TEST_MYSQL_PASSWORD }}
-          MYSQL_DATABASE: ${{ secrets.TEST_MYSQL_DATABASE }}
       - name: Lint
         # run: docker-compose exec app flake8
         run: docker-compose run --rm app sh -c "flake8"

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_spectacular",
+    "core.apps.CoreConfig,",
 ]
 
 MIDDLEWARE = [
@@ -82,9 +83,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         # コンテナ内の環境変数をDATABASESのパラメータに反映
-        "NAME": os.environ.get("TEST_MYSQL_DATABASE"),
-        "USER": os.environ.get("TEST_MYSQL_USER"),
-        "PASSWORD": os.environ.get("TEST_MYSQL_PASSWORD"),
+        "NAME": os.environ.get("MYSQL_DATABASE"),
+        "USER": os.environ.get("MYSQL_USER"),
+        "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
         "HOST": "db",
         "PORT": 3306,
     }
