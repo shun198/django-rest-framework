@@ -24,7 +24,7 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("profiles_api.urls")),
+    path("api/", include("recipe-api.urls")),
     # 127.0.0.1/8000/api/schema にアクセスするとテキストファイルをダウンロードできます
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # SwaggerUIの設定
