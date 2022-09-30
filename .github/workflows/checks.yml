@@ -32,7 +32,6 @@ jobs:
         # run: docker-compose exec app python manage.py test
         run:
           docker-compose run --rm app sh -c "python manage.py test"
-      - name: Lint
-        # run: docker-compose exec app flake8
-        run: docker-compose run --rm app sh -c "flake8"
+      # - name: Lint
+      #   run: docker-compose run --rm app sh -c "flake8"
 
