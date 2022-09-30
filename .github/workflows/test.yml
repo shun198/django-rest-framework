@@ -1,7 +1,7 @@
 # GitHub Actionsに表示される名前
 name: Test
-# トリガー(pushした時にジョブを実行する)
-on: [push]
+# トリガー(プルリクエスト)した時にジョブを実行する)
+on: [pull_request]
 # ジョブを定義
 jobs:
   # ジョブのID名
@@ -19,7 +19,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: generate .env
-        run: chmod +x set-up-env.test.sh && sh set-up-env.test.sh
+        run:
+          chmod +x set-up-env.test.sh && sh set-up-env.test.sh
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
