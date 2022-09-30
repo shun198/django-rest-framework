@@ -1,17 +1,19 @@
-"""Tests for models"""
-from django.test import TestCase
+# """Tests for models"""
+# from django.test import TestCase
 
-# カスタムユーザモデルをimport
+# # カスタムユーザモデルをimport
 # from django.contrib.auth import get_user_model
+
 
 # class ModelTests(TestCase):
 #     """Test models"""
+
 #     def test_create_with_user_with_email_successful(self):
 #         email = "test@example.com"
 #         password = "testpass123"
 #         user = get_user_model().objects.create_user(
-#             email = email,
-#             password = password,
+#             email=email,
+#             password=password,
 #         )
-#         self.asserEqual(user.email,email)
+#         self.assertEqual(user.email, email)
 #         self.assertTrue(user.check_password(password))
