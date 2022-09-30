@@ -20,6 +20,7 @@ jobs:
         uses: actions/checkout@v2
       - name: generate .env
         uses: actions/checkout@v2
+        run: chmod +x set-up-env.test.sh && sh set-up-env.test.sh
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
