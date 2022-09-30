@@ -31,3 +31,4 @@ jobs:
       - name: Lint
         # run: docker-compose exec app flake8
         run: docker-compose run --rm app sh -c "flake8"
+
