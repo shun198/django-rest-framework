@@ -6,8 +6,9 @@ COPY requirements.txt /code/
 COPY requirements.dev.txt /code/
 ARG DEV=false
 RUN pip install --upgrade pip && \
-    pip install -r requirements.txt && \
-    if [ $DEV="true" ]; \
-        then pip install -r requirements.dev.txt; \
-    fi
+    pip install -r requirements.txt
+    # && \
+    # if [ $DEV="true" ]; \
+    #     then pip install -r requirements.dev.txt; \
+    # fi
 COPY . /code/
