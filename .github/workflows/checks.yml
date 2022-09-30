@@ -19,6 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: generate .env
+        uses: actions/checkout@v2
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
