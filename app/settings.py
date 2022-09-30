@@ -114,9 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 # 言語を日本語に設定
-LANGUAGE_CODE = os.environ.get("LANGUAGE_CODE")
+LANGUAGE_CODE = "ja"
 # タイムゾーンをAsia/Tokyoに設定
-TIME_ZONE = os.environ.get("TIME_ZONE")
+TIME_ZONE = "Asia/Tokyo"
 
 USE_I18N = True
 
