@@ -19,3 +19,5 @@ jobs:
         run: pwd
       - name: show git branches after checkout
         run: git branch
+      - name: show all git branches after checkout
+        run: git branch -a
