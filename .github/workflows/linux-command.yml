@@ -9,8 +9,8 @@ jobs:
         run: ls -la
       - name: show current directory before checkout
         run: pwd
-      - name: show git branches before checkout
-        run: git branch
+      # - name: show git branches before checkout
+      #   run: git branch
       - name: Checkout
         uses: actions/checkout@v2
       - name: Inspect directory after checkout
