@@ -21,3 +21,5 @@ jobs:
         run: git branch
       - name: list all branches after checkout
         run: git branch --list
+      - name: switch branches to master
+        run: git checkout master
