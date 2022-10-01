@@ -1,0 +1,17 @@
+name: command
+on: [push]
+jobs:
+  command:
+    name: Use Linux commands
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Inspect directory before checkout
+        run:
+          ls -la
+          pwd
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Inspect directory after checkout
+        run:
+          ls -la
+          pwd
