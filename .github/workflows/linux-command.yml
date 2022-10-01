@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Inspect directory before checkout
-        run:
+        run: |
           ls -la
           pwd
       - name: Checkout
