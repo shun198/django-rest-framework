@@ -6,12 +6,16 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Inspect directory before checkout
-        run: |
-          ls -la
-          pwd
+        run: ls -la
+      - name: show current directory before checkout
+        run: pwd
+      - name: show git branches before checkout
+        run: git branch
       - name: Checkout
         uses: actions/checkout@v2
       - name: Inspect directory after checkout
-        run: |
-          ls -la
-          pwd
+        run: ls -la
+      - name: show current directory after checkout
+        run: pwd
+      - name: show git branches after checkout
+        run: git branch
