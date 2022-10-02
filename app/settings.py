@@ -151,4 +151,5 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
     # api/schemaを表示しない
     "SERVE_INCLUDE_SCHEMA": False,
+    'COMPONENT_SPLIT_REQUEST': True,
 }
