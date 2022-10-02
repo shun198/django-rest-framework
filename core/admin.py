@@ -48,3 +48,4 @@ class UserAdmin(BaseUserAdmin):
 
 # UserAdminを書くことでカスタムユーザモデルを指定
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Recipe)
