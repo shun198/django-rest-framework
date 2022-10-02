@@ -5,7 +5,7 @@ jobs:
     name: Use Linux commands
     runs-on: ubuntu-20.04
     steps:
-      - name: Inspect directory before checkout
+      - name: Inspect files before checkout
         run: ls -la
       - name: show current directory before checkout
         run: pwd
@@ -13,15 +13,16 @@ jobs:
       #   run: git branch
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Inspect directory after checkout
+      - name: Inspect files after checkout
         run: ls -la
       - name: show current directory after checkout
         run: pwd
       - name: show currrent branch after checkout
         run: git branch
-      - name: list all branches after checkout
-        run: git branch --list
-      # - name: switch branches to master
-      #   run: git checkout master
-      # - name: switch branches to main
-      #   run: git checkout main
+      - name: generate .env
+        run:
+          chmod +x set-up-env.test.sh && sh set-up-env.test.sh
+      - name: Inspect files after checkout
+        run: ls -la
+      - name: Look inside .env
+        run: cat .env
