@@ -19,10 +19,28 @@ jobs:
         run: pwd
       - name: show currrent branch after checkout
         run: git branch
-      - name: generate .env
+      - name: only generate .env
         run:
           chmod +x set-up-env.test.sh && sh set-up-env.test.sh
       - name: Inspect files after checkout
         run: ls -la
       - name: Look inside .env
         run: cat .env
+      - name: generate .env and include secrets
+        run:
+          chmod +x set-up-env.test.sh && sh set-up-env.test.sh
+          echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
+          echo "MYSQL_USER=$MYSQL_USER" >> .env
+          echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env
+          echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env
+          echo "SECRET_KEY=$SECRET_KEY" >> .env
+          echo "DJANGO_ALLOWED_HOSTS=$DJANGO_ALLOWED_HOSTS" >> .env
+          echo "DEBUG=$DEBUG" >> .env
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+          DEBUG: ${{ secrets.DEBUG }}
