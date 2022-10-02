@@ -32,6 +32,8 @@ jobs:
         run: ls -la
       - name: Look inside .env
         run: cat .env
+      - name: remove old .env
+        run: rm .env
       - name: generate .env and include secrets
         run:
           echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
