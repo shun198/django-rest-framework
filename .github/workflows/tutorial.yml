@@ -11,8 +11,17 @@ jobs:
         run: pwd
       - name: Inspect root directory files before checkout
         run: ls -la ~
-      - name: Check ubuntu distribution
+      - name: Inspect ubuntu distribution
         run : cat /etc/lsb-release
+      - name: Inspect environment variables
+        run :
+          echo $GITHUB_WORKSPACE
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_REPOSITORY_OWNER
+          echo $RUNNER_OS
+          echo $GITHUB_WORKFLOW
+          echo $GITHUB_WORKSPACE
+          echo $RUNNER_ARCH
       - name: Checkout
         uses: actions/checkout@v2
       - name: Inspect files after checkout
@@ -55,3 +64,5 @@ jobs:
           DEBUG: ${{ secrets.DEBUG }}
       - name: Look inside .env
         run: cat .env
+      - name: Inspect environment variables
+      - uses: hmarr/debug-action@v2
