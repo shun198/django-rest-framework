@@ -1,5 +1,5 @@
 name: command
-on: [pull_request]
+on: [push]
 jobs:
   # ジョブ名
   command:
