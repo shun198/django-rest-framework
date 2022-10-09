@@ -9,8 +9,8 @@ jobs:
         run: ls -la
       - name: show current directory before checkout
         run: pwd
-      # - name: Inspect files before checkout
-      #   run: ls -la
+      - name: Inspect root directory files before checkout
+        run: ls -la ~
       - name: Checkout
         uses: actions/checkout@v2
       - name: Inspect files after checkout
