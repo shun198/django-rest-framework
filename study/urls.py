@@ -24,17 +24,17 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("relationships.urls")),
+    path("api/", include("relationships.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # SwaggerUIの設定
     path(
-        "docs/",
+        "api/docs/",
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
     # Redocの設定
     path(
-        "redoc/",
+        "api/redoc/",
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),

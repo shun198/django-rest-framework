@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Customer,Book
+from relationships import models
 # Register your models here.
-admin.site.register(Customer)
-admin.site.register(Book)
+admin.site.register(models.Customer)
+admin.site.register(models.Book)
+admin.site.register(models.Workplace)
+admin.site.register(models.Bank)

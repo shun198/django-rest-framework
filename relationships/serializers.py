@@ -1,13 +1,26 @@
 from rest_framework import serializers
-from .models import Customer,Book
+from .models import Customer,Book,Workplace,Bank
 
-class CustomerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Customer
-        fields = ["name","age"]
-        
-        
+
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ["name", "date"]
+        fields = ["id","kana","name", "date"]
+class CustomerSerializer(serializers.ModelSerializer):
+    book = BookSerializer(read_only=True)
+    class Meta:
+        model = Customer
+        fields = ["id","kana","name","age","post_no","book"]
+
+class WorkplaceSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer(read_only=True)
+    class Meta:
+        model = Workplace
+        fields = ["id","customer","kana","name", "phone_no"]
+
+class BankSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer(read_only=True)
+    class Meta:
+        model = Bank
+        fields = ["id","customer", "holder","number","type","bank","branch"]
+

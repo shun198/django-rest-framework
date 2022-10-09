@@ -34,48 +34,44 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      #- db
-      # - redis
-      redis:
-        condition: service_healthy
-      # db:
+      # redis:
       #   condition: service_healthy
-  redis:
-    container_name: redis
-    image: redis:alpine
-    healthcheck:
-      test: redis-cli -h 127.0.0.1 ping
-      
-  
-  celery:
-    container_name: celery
-    # djangoのDockerfileを指定
-    build:
-      context: .
-      dockerfile: containers/django/Dockerfile
-    # celery -A r<アプリケーション名> worker -l info
-    command: celery -A relationships worker -l info
-    volumes:
-      - .:/code
-    env_file:
-      - ./.env
-    depends_on:
-      - redis
-  
-  celery-beat:
-    container_name: celery-beat
-    # djangoのDockerfileを指定
-    build:
-      context: .
-      dockerfile: containers/django/Dockerfile
-    # celery -A <アプリケーション名> beat -l info
-    command: celery -A relationships beat -l info
-    volumes:
-      - .:/code
-    env_file:
-      - ./.env
-    depends_on:
-      - redis
+  # redis:
+  #   container_name: redis
+  #   image: redis:alpine
+  #   healthcheck:
+  #     test: redis-cli -h 127.0.0.1 ping
+
+
+  # celery:
+  #   container_name: celery
+  #   djangoのDockerfileを指定
+  #   build:
+  #     context: .
+  #     dockerfile: containers/django/Dockerfile
+  #   celery -A r<アプリケーション名> worker -l info
+  #   command: celery -A relationships worker -l info
+  #   volumes:
+  #     - .:/code
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - redis
+
+  # celery-beat:
+  #   container_name: celery-beat
+  #   djangoのDockerfileを指定
+  #   build:
+  #     context: .
+  #     dockerfile: containers/django/Dockerfile
+  #   celery -A <アプリケーション名> beat -l info
+  #   command: celery -A relationships beat -l info
+  #   volumes:
+  #     - .:/code
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - redis
 volumes:
   db_data:
   static:
