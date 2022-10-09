@@ -65,4 +65,4 @@ jobs:
       - name: Look inside .env
         run: cat .env
       - name: Inspect environment variables
-      - uses: hmarr/debug-action@v2
+        uses: hmarr/debug-action@v2
