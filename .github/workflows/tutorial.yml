@@ -53,5 +53,5 @@ jobs:
           DEBUG: ${{ secrets.DEBUG }}
       - name: Look inside .env
         run: cat .env
-      - name: Show environment variables
+      - name: Inspect environment variables
         uses: hmarr/debug-action@v2
