@@ -20,8 +20,8 @@ jobs:
         run: ls -la
       - name: show current directory after checkout
         run: pwd
-      - name: show currrent branch after checkout
-        run: git branch
+      - name: show all branches after checkout
+        run: git branch -a
       - name: only generate .env
         run:
           echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
