@@ -6,6 +6,7 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ["id","kana","name", "date"]
+
 class CustomerSerializer(serializers.ModelSerializer):
     book = BookSerializer(read_only=True)
     class Meta:
