@@ -16,6 +16,10 @@ services:
       - .env.prod
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
   app:
     container_name: app
     build:

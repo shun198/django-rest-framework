@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # DEBUGを.envから取得
-DEBUG = bool(int(os.environ.get("DEBUG",0)))
+DEBUG = os.environ.get("DEBUG") == "True"
 
 # ALLOWED_HOSTSを.envから取得
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
@@ -116,9 +116,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 # 言語を日本語に設定
-LANGUAGE_CODE = os.environ.get("LANGUAGE_CODE")
+LANGUAGE_CODE = "ja"
 # タイムゾーンをAsia/Tokyoに設定
-TIME_ZONE = os.environ.get("TIME_ZONE")
+TIME_ZONE = "Asia/Tokyo"
 
 USE_I18N = True
 
