@@ -25,7 +25,7 @@
         }
     },
     {
-    "model": "relationshipss.Author",
+    "model": "relationships.Author",
         "pk":2,
         "fields": {
             "book":2,
@@ -46,7 +46,7 @@
         }
     },
     {
-    "model": "rrelationships.Customer",
+    "model": "relationships.Customer",
         "pk":2,
         "fields": {
             "kana":"ヤマダハナコ",
