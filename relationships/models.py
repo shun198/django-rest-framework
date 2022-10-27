@@ -4,17 +4,26 @@ from django.core.validators import RegexValidator
 
 class Book(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    kana = models.CharField(max_length=50)
-    name = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
+    author = models.ForeignKey("Author", on_delete=models.CASCADE)
     date = models.DateField()
 
     class Meta:
-        ordering = ["name", "date"]
+        ordering = ["title", "date"]
         db_table = "Book"
 
     def __str__(self):
-        return self.name
+        return self.title
 
+class Author(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = "Author"
+
+    def __str__(self):
+        return self.name
 
 class Customer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -24,10 +33,10 @@ class Customer(models.Model):
     post_no = models.CharField(
         max_length=7, validators=[RegexValidator(r"^[0-9]{7}$", "7桁の数字を入力してください。")]
     )
-    book = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
+    book = models.ManyToManyField("Book")
 
     class Meta:
-        ordering = ["name", "age", "book"]
+        ordering = ["name", "age"]
         db_table = "Customer"
 
     def __str__(self):

@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.10"
 drf-nested-routers = "^0.93.4"
 django-extensions = "^3.2.1"
+redis = "^4.3.4"
 
 [tool.poetry.group.dev.dependencies]
 Django = "^4.1.2"
