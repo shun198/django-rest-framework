@@ -4,8 +4,7 @@
         "pk":1,
         "fields": {
             "title":"ハリー・ポッターと賢者の石",
-            "author":1,
-            "date":"2022-07-28"
+            "created_at":"2022-07-28T00:31:09.732Z"
         }
     },
     {
@@ -13,22 +12,25 @@
         "pk":2,
         "fields": {
             "title":"ノルウェーの森",
-            "author":2,
-            "date":"2022-07-28"
+            "created_at":"2022-07-28T00:31:09.732Z"
         }
     },
     {
     "model": "relationships.Author",
         "pk":1,
         "fields": {
-            "name":"J・K・ローリング"
+            "book":1,
+            "name":"J・K・ローリング",
+            "created_at":"2022-07-28T00:31:09.732Z"
         }
     },
     {
-    "model": "relationships.Author",
+    "model": "relationshipss.Author",
         "pk":2,
         "fields": {
-            "name":"村上春樹"
+            "book":2,
+            "name":"村上春樹",
+            "created_at":"2022-07-28T00:31:09.732Z"
         }
     },
     {
@@ -39,18 +41,20 @@
             "name":"田中一郎",
             "age":20,
             "post_no":"6003333",
-            "book":[1,2]
+            "book":[1,2],
+            "created_at":"2022-07-28T00:31:09.732Z"
         }
     },
     {
-    "model": "relationships.Customer",
+    "model": "rrelationships.Customer",
         "pk":2,
         "fields": {
             "kana":"ヤマダハナコ",
             "name":"山田花子",
             "age":20,
             "post_no":"6004444",
-            "book":[1,2]
+            "book":[1,2],
+            "created_at":"2022-07-28T00:31:09.732Z"
         }
     }
 ]

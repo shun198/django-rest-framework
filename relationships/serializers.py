@@ -11,7 +11,7 @@ from .models import (
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ["id","title","author", "date"]
+        fields = ["id","title","author"]
 
 
 class AuthorSerializer(serializers.ModelSerializer):

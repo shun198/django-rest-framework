@@ -5,11 +5,10 @@ from django.core.validators import RegexValidator
 class Book(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=50)
-    author = models.ForeignKey("Author", on_delete=models.CASCADE)
-    date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["title", "date"]
+        ordering = ["title"]
         db_table = "Book"
 
     def __str__(self):
@@ -17,7 +16,9 @@ class Book(models.Model):
 
 class Author(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    book = models.ForeignKey("Book", on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "Author"
@@ -27,13 +28,14 @@ class Author(models.Model):
 
 class Customer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    kana = models.CharField(max_length=60)
-    name = models.CharField(max_length=60)
+    kana = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     age = models.IntegerField()
     post_no = models.CharField(
         max_length=7, validators=[RegexValidator(r"^[0-9]{7}$", "7桁の数字を入力してください。")]
     )
     book = models.ManyToManyField("Book")
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["name", "age"]
@@ -53,6 +55,7 @@ class Workplace(models.Model):
         max_length=11,
         validators=[RegexValidator(r"^[0-9]{10,11}$","10か11桁の数字を入力してください。")],
     )
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "Workplace"
@@ -78,6 +81,7 @@ class Bank(models.Model):
     )
     bank = models.CharField(max_length=255)
     branch = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = "Bank"
