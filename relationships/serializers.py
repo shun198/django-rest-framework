@@ -20,10 +20,16 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ["id","book","name"]
 
 class CustomerSerializer(serializers.ModelSerializer):
-    book = BookSerializer(read_only=True)
+    # book = BookSerializer(read_only=True)
     class Meta:
         model = Customer
-        fields = ["id","kana","name","age","post_no","book"]
+        fields = ["id","name"]
+        # fields = ["id","book","kana","name","age","post_no"]
+    def to_representation(self, instance):
+        rep = super(CustomerSerializer, self).to_representation(instance)
+        bank = instance.bank.latest("created_at")
+        rep["number"] = bank.number
+        return rep
 
 class WorkplaceSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer(read_only=True)

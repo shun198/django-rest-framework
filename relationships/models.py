@@ -48,7 +48,7 @@ class Customer(models.Model):
 # 勤務先
 class Workplace(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE,related_name="workplace")
     kana = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     phone_no = models.CharField(
@@ -70,7 +70,7 @@ class Bank(models.Model):
         ORDINARY = 0
         CURRENT = 1
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    customer = models.OneToOneField(Customer, on_delete=models.CASCADE)
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE,related_name="bank")
     holder = models.CharField(max_length=255)
     number = models.CharField(
         max_length=11,
