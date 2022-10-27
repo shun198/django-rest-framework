@@ -12,19 +12,15 @@ from django.http import (
 from django.shortcuts import get_object_or_404
 from django.core import serializers
 from .serializers import (
-    CustomerSerializer,
     BookSerializer,
+    AuthorSerializer,
+    CustomerSerializer,
     WorkplaceSerializer,
-    BankSerializer
+    BankSerializer,
 )
-from .models import Customer, Book,Workplace,Bank
+from .models import Author, Customer, Book,Workplace,Bank
 
 # Create your views here.
-class CustomerViewSets(viewsets.ModelViewSet):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-
-
 class BookViewSets(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -42,6 +38,16 @@ class BookViewSets(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class AuthorViewSets(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+
+class CustomerViewSets(viewsets.ModelViewSet):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
 
 class WorkplaceViewSets(viewsets.ModelViewSet):
