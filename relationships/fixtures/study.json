@@ -110,5 +110,43 @@
             "branch": "京都支店",
             "created_at": "2022-07-28T00:31:09.732Z"
         }
+    },
+    {
+        "model": "relationships.Order",
+        "pk": 1,
+        "fields": {
+            "customer": 1,
+            "order_no": "00011122",
+            "created_at": "2022-07-28T00:31:09.732Z"
+        }
+    },
+    {
+        "model": "relationships.Order",
+        "pk": 2,
+        "fields": {
+            "customer": 2,
+            "order_no": "11122233",
+            "created_at": "2022-07-28T00:31:09.732Z"
+        }
+    },
+    {
+        "model": "relationships.Item",
+        "pk": 1,
+        "fields": {
+            "customer": 1,
+            "item_no": "00011122",
+            "name":"ソファー",
+            "created_at": "2022-07-28T00:31:09.732Z"
+        }
+    },
+    {
+        "model": "relationships.Item",
+        "pk": 2,
+        "fields": {
+            "customer": 2,
+            "item_no": "11122233",
+            "name":"勉強机",
+            "created_at": "2022-07-28T00:31:09.732Z"
+        }
     }
 ]

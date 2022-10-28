@@ -95,6 +95,7 @@ class Order(models.Model):
     order_no = models.CharField(
         max_length=8,
         validators=[RegexValidator(r"^[0-9]{8}$","8桁の数字を入力してください。")],
+        unique=True
         )
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -104,6 +105,7 @@ class Item(models.Model):
     item_no = models.CharField(
         max_length=8,
         validators=[RegexValidator(r"^[0-9]{8}$","8桁の数字を入力してください。")],
+        unique=True
         )
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
