@@ -16,7 +16,7 @@ class Book(models.Model):
 
 class Author(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    book = models.ForeignKey("Book", on_delete=models.CASCADE)
+    book = models.ForeignKey("Book", on_delete=models.CASCADE,related_name="author")
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -48,7 +48,7 @@ class Customer(models.Model):
 # 勤務先
 class Workplace(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE,related_name="workplace")
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE,related_name="workplace")
     kana = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     phone_no = models.CharField(
@@ -61,7 +61,7 @@ class Workplace(models.Model):
         db_table = "Workplace"
 
     def __str__(self):
-        return self.name
+        return self.customer.name
 
 # 銀行口座
 class Bank(models.Model):
@@ -88,3 +88,22 @@ class Bank(models.Model):
 
     def __str__(self):
         return self.customer.name
+
+# 注文
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE,related_name="order")
+    order_no = models.CharField(
+        max_length=8,
+        validators=[RegexValidator(r"^[0-9]{8}$","8桁の数字を入力してください。")],
+        )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+# 商品
+class Item(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE,related_name="item")
+    item_no = models.CharField(
+        max_length=8,
+        validators=[RegexValidator(r"^[0-9]{8}$","8桁の数字を入力してください。")],
+        )
+    name = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)

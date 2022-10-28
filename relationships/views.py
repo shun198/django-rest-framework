@@ -54,18 +54,6 @@ class WorkplaceViewSets(viewsets.ModelViewSet):
     queryset = Workplace.objects.all()
     serializer_class = WorkplaceSerializer
 
-    def list(self,request):
-        workplace = Workplace.objects.values("customer_id","name","phone_no")
-        return Response(workplace)
-
-    def retrieve(self, request, pk,*args, **kwargs):
-        serializer = WorkplaceSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class BankViewSets(viewsets.ModelViewSet):
     queryset = Bank.objects.all()

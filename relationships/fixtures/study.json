@@ -1,60 +1,114 @@
 [
     {
-    "model": "relationships.Book",
-        "pk":1,
+        "model": "relationships.Book",
+        "pk": 1,
         "fields": {
-            "title":"ハリー・ポッターと賢者の石",
-            "created_at":"2022-07-28T00:31:09.732Z"
+            "title": "ハリー・ポッターと賢者の石",
+            "created_at": "2022-07-28T00:31:09.732Z"
         }
     },
     {
-    "model": "relationships.Book",
-        "pk":2,
+        "model": "relationships.Book",
+        "pk": 2,
         "fields": {
-            "title":"ノルウェーの森",
-            "created_at":"2022-07-28T00:31:09.732Z"
+            "title": "ノルウェーの森",
+            "created_at": "2022-07-28T00:31:09.732Z"
         }
     },
     {
-    "model": "relationships.Author",
-        "pk":1,
+        "model": "relationships.Author",
+        "pk": 1,
         "fields": {
-            "book":1,
-            "name":"J・K・ローリング",
-            "created_at":"2022-07-28T00:31:09.732Z"
+            "book": 1,
+            "name": "J・K・ローリング",
+            "created_at": "2022-07-28T00:31:09.732Z"
         }
     },
     {
-    "model": "relationships.Author",
-        "pk":2,
+        "model": "relationships.Author",
+        "pk": 2,
         "fields": {
-            "book":2,
-            "name":"村上春樹",
-            "created_at":"2022-07-28T00:31:09.732Z"
+            "book": 2,
+            "name": "村上春樹",
+            "created_at": "2022-07-28T00:31:09.732Z"
         }
     },
     {
-    "model": "relationships.Customer",
-        "pk":1,
+        "model": "relationships.Customer",
+        "pk": 1,
         "fields": {
-            "kana":"タナカイチロウ",
-            "name":"田中一郎",
-            "age":20,
-            "post_no":"6003333",
-            "book":[1,2],
-            "created_at":"2022-07-28T00:31:09.732Z"
+            "kana": "タナカイチロウ",
+            "name": "田中一郎",
+            "age": 20,
+            "post_no": "6003333",
+            "book": [
+                1,
+                2
+            ],
+            "created_at": "2022-07-28T00:31:09.732Z"
         }
     },
     {
-    "model": "relationships.Customer",
-        "pk":2,
+        "model": "relationships.Customer",
+        "pk": 2,
         "fields": {
-            "kana":"ヤマダハナコ",
-            "name":"山田花子",
-            "age":20,
-            "post_no":"6004444",
-            "book":[1,2],
-            "created_at":"2022-07-28T00:31:09.732Z"
+            "kana": "ヤマダハナコ",
+            "name": "山田花子",
+            "age": 20,
+            "post_no": "6004444",
+            "book": [
+                1,
+                2
+            ],
+            "created_at": "2022-07-28T00:31:09.732Z"
+        }
+    },
+    {
+        "model": "relationships.Workplace",
+        "pk": 1,
+        "fields": {
+            "customer": 1,
+            "kana": "キンムサキゼロイチ",
+            "name": "勤務先01",
+            "phone_no": "0801112222",
+            "created_at": "2022-07-28T00:31:09.732Z"
+        }
+    },
+    {
+        "model": "relationships.Workplace",
+        "pk": 2,
+        "fields": {
+            "customer": 2,
+            "kana": "キンムサキゼロ二",
+            "name": "勤務先02",
+            "phone_no": "0803334444",
+            "created_at": "2022-07-28T00:31:09.732Z"
+        }
+    },
+    {
+        "model": "relationships.Bank",
+        "pk": 1,
+        "fields": {
+            "customer": 1,
+            "holder": "タナカタロウ",
+            "number": "9433555",
+            "type": 0,
+            "bank": "銀行01",
+            "branch": "大阪支店",
+            "created_at": "2022-07-28T00:31:09.732Z"
+        }
+    },
+    {
+        "model": "relationships.Bank",
+        "pk": 2,
+        "fields": {
+            "customer": 2,
+            "holder": "ヤマダハナコ",
+            "number": "9433555",
+            "type": 1,
+            "bank": "銀行02",
+            "branch": "京都支店",
+            "created_at": "2022-07-28T00:31:09.732Z"
         }
     }
 ]
