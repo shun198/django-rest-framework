@@ -97,6 +97,7 @@ class Order(models.Model):
         validators=[RegexValidator(r"^[0-9]{8}$","8桁の数字を入力してください。")],
         unique=True
         )
+    count = models.SmallIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
 # 商品

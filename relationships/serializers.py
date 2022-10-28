@@ -27,10 +27,9 @@ class AuthorSerializer(serializers.ModelSerializer):
         read_only_fields = ["id","created_at"]
 
 class CustomerSerializer(serializers.ModelSerializer):
-    # book = BookSerializer(read_only=True)
     class Meta:
         model = Customer
-        fields = ["id","kana","name","age","post_no","created_at"]
+        fields = ["id","name","created_at"]
         read_only_fields = ["id","created_at"]
 
     def to_representation(self, instance):
