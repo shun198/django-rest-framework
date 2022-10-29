@@ -38,7 +38,6 @@ class Customer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["name", "age"]
         db_table = "Customer"
 
     def __str__(self):
@@ -99,6 +98,12 @@ class Order(models.Model):
         )
     count = models.SmallIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "Order"
+
+    def __str__(self):
+        return self.order_no.name
 
 # 商品
 class Item(models.Model):

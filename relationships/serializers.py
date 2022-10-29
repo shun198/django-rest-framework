@@ -29,14 +29,23 @@ class AuthorSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ["id","name","created_at"]
-        read_only_fields = ["id","created_at"]
+        fields = ["id","name"]
+        read_only_fields = ["id"]
 
     def to_representation(self, instance):
-        rep = super(CustomerSerializer, self).to_representation(instance)
-        book_title = instance.book.latest("created_at").title
-        rep["book_title"] = book_title
-        return rep
+        # superがあることでretは全てのメソッドとプロパティを引き継ぐ
+        # OrderedDictを使える
+        ret = super(CustomerSerializer, self).to_representation(instance)
+        # 勤務先名
+        workplace = instance.workplace.name
+        # 商品番号
+        order = instance.order.latest("created_at")
+        # 商品名
+        # item = instance.order.latest("created_at").item.latest("created_at")
+        ret["workplace"] = workplace
+        ret["order_no"] = order.order_no
+        # ret["item"] = item.name
+        return ret
 
 class WorkplaceSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer(read_only=True)

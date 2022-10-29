@@ -117,6 +117,7 @@
         "fields": {
             "customer": 1,
             "order_no": "00011122",
+            "count": "2",
             "created_at": "2022-07-28T00:31:09.732Z"
         }
     },
@@ -126,6 +127,7 @@
         "fields": {
             "customer": 2,
             "order_no": "11122233",
+            "count": "3",
             "created_at": "2022-07-28T00:31:09.732Z"
         }
     },
@@ -133,7 +135,7 @@
         "model": "relationships.Item",
         "pk": 1,
         "fields": {
-            "customer": 1,
+            "order": 1,
             "item_no": "00011122",
             "name":"ソファー",
             "created_at": "2022-07-28T00:31:09.732Z"
@@ -143,7 +145,7 @@
         "model": "relationships.Item",
         "pk": 2,
         "fields": {
-            "customer": 2,
+            "order": 2,
             "item_no": "11122233",
             "name":"勉強机",
             "created_at": "2022-07-28T00:31:09.732Z"
