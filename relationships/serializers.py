@@ -29,7 +29,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ["id""kana","name","age","post_no","created_at"]
+        fields = ["id","kana","name","age","post_no","created_at"]
         read_only_fields = ["id","created_at"]
 
     def to_representation(self, instance):
