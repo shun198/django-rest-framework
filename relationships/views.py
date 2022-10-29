@@ -23,11 +23,13 @@ from .models import Author, Customer, Book,Workplace,Bank
 
 class CustomerFilter(filters.FilterSet):
     name = filters.CharFilter(field_name="name",lookup_expr="contains")
+    workplace = filters.CharFilter(field_name="workplace",lookup_expr="contains")
+
     class Meta:
         model = Customer
         # フィルタを列挙する。
         # デフォルトの検索方法でいいなら、モデルフィールド名のフィルタを直接定義できる。
-        fields = ['name']
+        fields = ["name","workplace"]
 
 # Create your views here.
 class BookViewSets(viewsets.ModelViewSet):

@@ -39,11 +39,11 @@ class CustomerSerializer(serializers.ModelSerializer):
         # 勤務先名
         workplace = instance.workplace.name
         # 商品番号
-        order = instance.order.latest("created_at")
+        # order = instance.order.latest("created_at")
         # 商品名
         # item = instance.order.latest("created_at").item.latest("created_at")
         ret["workplace"] = workplace
-        ret["order_no"] = order.order_no
+        # ret["order_no"] = order.order_no
         # ret["item"] = item.name
         return ret
 
