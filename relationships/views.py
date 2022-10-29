@@ -22,7 +22,7 @@ from .serializers import (
 from .models import Author, Customer, Book,Workplace,Bank
 
 class CustomerFilter(filters.FilterSet):
-    name = filters.CharFilter(name="name",lookup_expr="contains")
+    name = filters.CharFilter(field_name="name",lookup_expr="contains")
     class Meta:
         model = Customer
         # フィルタを列挙する。
