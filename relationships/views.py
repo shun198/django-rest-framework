@@ -57,7 +57,9 @@ class AuthorViewSets(viewsets.ModelViewSet):
 class CustomerViewSets(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    filter_class = CustomerFilter
+    # django-filter backendを追加
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = CustomerFilter
 
 
 class WorkplaceViewSets(viewsets.ModelViewSet):
