@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from django_filters import rest_framework as filters
 from rest_framework.decorators import action,api_view
 from rest_framework import status
 from rest_framework.views import APIView
@@ -19,6 +20,14 @@ from .serializers import (
     BankSerializer,
 )
 from .models import Author, Customer, Book,Workplace,Bank
+
+class CustomerFilter(filters.FilterSet):
+    name = filters.CharFilter(name="name",lookup_expr="contains")
+    class Meta:
+        model = Customer
+        # フィルタを列挙する。
+        # デフォルトの検索方法でいいなら、モデルフィールド名のフィルタを直接定義できる。
+        fields = ['name']
 
 # Create your views here.
 class BookViewSets(viewsets.ModelViewSet):
