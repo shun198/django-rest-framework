@@ -57,6 +57,7 @@ class AuthorViewSets(viewsets.ModelViewSet):
 class CustomerViewSets(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+    filter_class = CustomerFilter
 
 
 class WorkplaceViewSets(viewsets.ModelViewSet):
