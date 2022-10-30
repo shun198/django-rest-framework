@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "django_extensions",
     'django_filters',
+    "debug_toolbar",
     "relationships.apps.RelationshipsConfig",
 ]
 
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "study.urls"
@@ -151,3 +153,4 @@ SPECTACULAR_SETTINGS = {
     # オプション
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
