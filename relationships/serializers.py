@@ -37,22 +37,30 @@ class CustomerSerializer(serializers.ModelSerializer):
         # OrderedDictを使える
         ret = super(CustomerSerializer, self).to_representation(instance)
         # 勤務先名
-        workplace = instance.workplace.name
+        workplace = instance.workplace
         # 商品番号
         # order = instance.order.latest("created_at")
         # 商品名
         # item = instance.order.latest("created_at").item.latest("created_at")
-        ret["workplace"] = workplace
+        ret["workplace_name"] = workplace.name
         # ret["order_no"] = order.order_no
         # ret["item"] = item.name
         return ret
 
+
 class WorkplaceSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer(read_only=True)
+    # customer = CustomerSerializer(read_only=True)
     class Meta:
         model = Workplace
-        fields = ["id","customer","kana","name", "phone_no","created_at"]
+        fields = ["id","kana","name", "phone_no","created_at"]
         read_only_fields = ["id","created_at"]
+
+    def to_representation(self, instance):
+        ret = super(WorkplaceSerializer, self).to_representation(instance)
+        customer = instance.customer
+        ret["customer_name"] = customer.name
+        return ret
+
 
 class BankSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer(read_only=True)

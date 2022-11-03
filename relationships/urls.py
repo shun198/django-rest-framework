@@ -1,11 +1,12 @@
 from django.urls import path, include
 from rest_framework_nested import routers
-from .views import (
+from relationships.views import (
     BookViewSets,
     AuthorViewSets,
     CustomerViewSets,
     WorkplaceViewSets,
     BankViewSets,
+    health_check
 )
 
 # Create a router and register our viewsets with it.
@@ -22,4 +23,5 @@ router.register(r'banks', BankViewSets,basename="bank")
 urlpatterns = [
     path(r'', include(router.urls)),
     # path(r'', include(customer_router.urls)),
+    path("health/", health_check, name="health"),
 ]

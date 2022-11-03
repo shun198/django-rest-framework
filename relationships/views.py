@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from django_filters import rest_framework as filters
 from rest_framework.decorators import action,api_view
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -20,16 +20,11 @@ from .serializers import (
     BankSerializer,
 )
 from .models import Author, Customer, Book,Workplace,Bank
+from .filters import (
+    CustomerFilter,
+    WorkPlaceFilter,
+)
 
-class CustomerFilter(filters.FilterSet):
-    name = filters.CharFilter(field_name="name",lookup_expr="contains")
-    workplace = filters.CharFilter(field_name="workplace",lookup_expr="contains")
-
-    class Meta:
-        model = Customer
-        # フィルタを列挙する。
-        # デフォルトの検索方法でいいなら、モデルフィールド名のフィルタを直接定義できる。
-        fields = ["name","workplace"]
 
 # Create your views here.
 class BookViewSets(viewsets.ModelViewSet):
@@ -60,15 +55,25 @@ class CustomerViewSets(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
     # django-filter backendを追加
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend,)
     filterset_class = CustomerFilter
 
 
 class WorkplaceViewSets(viewsets.ModelViewSet):
     queryset = Workplace.objects.all()
     serializer_class = WorkplaceSerializer
-
+    # django-filter backendを追加
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = WorkPlaceFilter
 
 class BankViewSets(viewsets.ModelViewSet):
     queryset = Bank.objects.all()
     serializer_class = BankSerializer
+
+
+@api_view(['GET'])
+def health_check(request):
+    try:
+        return JsonResponse(data={"msg":"pass"},status=200)
+    except:
+        return JsonResponse(data={"msg":"fail"},status=500)
