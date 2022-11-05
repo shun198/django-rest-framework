@@ -1,11 +1,41 @@
 import uuid
 from django.db import models
 from django.core.validators import RegexValidator
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.validators import UnicodeUsernameValidator
+
+
+class User(AbstractUser):
+    username_validator = UnicodeUsernameValidator()
+
+    first_name = None
+    last_name = None
+    date_joined = None
+    groups = None
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    username = models.CharField(
+        max_length=150,
+        unique=True,
+        validators=[username_validator],
+    )
+    email = models.EmailField(max_length=254, unique=True)
+    created_by = models.ForeignKey("self", on_delete=models.DO_NOTHING, related_name='%(class)s_created_by')
+    updated_by = models.ForeignKey("self", on_delete=models.DO_NOTHING, related_name='%(class)s_updated_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    USERNAME_FIELD = "email"
+
+    def __str__(self):
+        return self.username
 
 class Book(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_created_by')
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_updated_by')
 
     class Meta:
         ordering = ["title"]
@@ -19,6 +49,9 @@ class Author(models.Model):
     book = models.ForeignKey("Book", on_delete=models.CASCADE,related_name="author")
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_created_by')
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_updated_by')
 
     class Meta:
         db_table = "Author"
@@ -36,6 +69,9 @@ class Customer(models.Model):
     )
     book = models.ManyToManyField("Book")
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_created_by')
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_updated_by')
 
     class Meta:
         db_table = "Customer"
@@ -55,12 +91,15 @@ class Workplace(models.Model):
         validators=[RegexValidator(r"^[0-9]{10,11}$","10か11桁の数字を入力してください。")],
     )
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_created_by')
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_updated_by')
 
     class Meta:
         db_table = "Workplace"
 
     def __str__(self):
-        return self.customer.name
+        return self.name
 
 # 銀行口座
 class Bank(models.Model):
@@ -81,12 +120,15 @@ class Bank(models.Model):
     bank = models.CharField(max_length=255)
     branch = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_created_by')
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_updated_by')
 
     class Meta:
         db_table = "Bank"
 
     def __str__(self):
-        return self.customer.name
+        return self.name
 
 # 注文
 class Order(models.Model):
@@ -98,12 +140,13 @@ class Order(models.Model):
         )
     count = models.SmallIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_created_by')
 
     class Meta:
         db_table = "Order"
 
     def __str__(self):
-        return self.order_no.name
+        return self.order_no
 
 # 商品
 class Item(models.Model):
@@ -115,3 +158,12 @@ class Item(models.Model):
         )
     name = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_created_by')
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_updated_by')
+
+    class Meta:
+        db_table = "Item"
+
+    def __str__(self):
+        return self.name

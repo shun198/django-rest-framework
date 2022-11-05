@@ -27,6 +27,10 @@ from .filters import (
 
 
 # Create your views here.
+@api_view(['GET'])
+def health_check(request):
+        return JsonResponse(data={"msg":"pass"},status=200)
+
 class BookViewSets(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -71,9 +75,3 @@ class BankViewSets(viewsets.ModelViewSet):
     serializer_class = BankSerializer
 
 
-@api_view(['GET'])
-def health_check(request):
-    try:
-        return JsonResponse(data={"msg":"pass"},status=200)
-    except:
-        return JsonResponse(data={"msg":"fail"},status=500)

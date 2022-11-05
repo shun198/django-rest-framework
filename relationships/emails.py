@@ -9,7 +9,7 @@ def send_password_reset(user_email, url):
     mail.send_mail(
         subject="パスワードリセットの依頼",
         message=plaintext,
-        from_email="mail@mail.com",
+        from_email="example@mail.com",
         recipient_list=[user_email],
         html_message=html_text,
     )
@@ -22,7 +22,7 @@ def send_welcome_email(user_email, username, url):
     mail.send_mail(
         subject="ようこそ",
         message=plaintext,
-        from_email="mail@mail.com",
+        from_email="example@mail.com",
         recipient_list=[user_email],
         html_message=html_text,
     )
