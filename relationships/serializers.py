@@ -31,7 +31,7 @@ class ChangePasswordSerializer(serializers.Serializer):
 
     def validate(self, data):
         if data['new_password'] != data['confirm_password']:
-            raise serializers.ValidationError("パスワードと確認パスワードは異なります。")
+            raise serializers.ValidationError("new password and confirmation password is incorrect")
         validate_password(data['new_password'])
         return data
 
