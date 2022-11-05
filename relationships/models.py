@@ -13,6 +13,7 @@ class User(AbstractUser):
     date_joined = None
     groups = None
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    employee_number = models.CharField(unique=True, validators=[RegexValidator(r'^[0-9]{8}$')], max_length=8)
     username = models.CharField(
         max_length=150,
         unique=True,
@@ -24,7 +25,8 @@ class User(AbstractUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "employee_number"
+    REQUIRED_FIELDS = ["email","username"]
 
     def __str__(self):
         return self.username
@@ -128,7 +130,7 @@ class Bank(models.Model):
         db_table = "Bank"
 
     def __str__(self):
-        return self.name
+        return self.customer.name
 
 # 注文
 class Order(models.Model):
