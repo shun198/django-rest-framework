@@ -6,7 +6,7 @@ from relationships.models import (
 
 class CustomerFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(field_name="name",lookup_expr="contains")
-    workplace = django_filters.CharFilter(field_name="workplace",lookup_expr="contains")
+    workplace = django_filters.CharFilter(field_name="workplace__name",lookup_expr="contains")
 
     class Meta:
         model = Customer
