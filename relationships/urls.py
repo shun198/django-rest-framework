@@ -6,11 +6,15 @@ from relationships.views import (
     CustomerViewSets,
     WorkplaceViewSets,
     BankViewSets,
-    health_check
+    health_check,
+)
+from relationships.user_views import (
+    UserViewSet,
 )
 
 # Create a router and register our viewsets with it.
 router = routers.DefaultRouter()
+router.register(r'users', UserViewSet, basename='user')
 router.register(r'books', BookViewSets,basename="book")
 router.register(r'authors', AuthorViewSets,basename="author")
 router.register(r'customers', CustomerViewSets,basename="customer")

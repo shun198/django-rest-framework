@@ -1,11 +1,20 @@
 from rest_framework import serializers
 from .models import (
+    User,
     Book,
     Author,
     Customer,
     Workplace,
     Bank,
 )
+
+
+class LoginSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(max_length=254)
+
+    class Meta:
+        model = User
+        fields = ["employee_number",'email', "username", 'password']
 
 
 class BookSerializer(serializers.ModelSerializer):
