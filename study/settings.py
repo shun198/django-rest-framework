@@ -156,3 +156,48 @@ SPECTACULAR_SETTINGS = {
 
 
 AUTH_USER_MODEL = 'relationships.User'
+
+
+# ユーザー登録用Tokenの有効期間(１日)
+VERIFY_USER_TOKEN_EXPIRE = 60 * 60 * 24
+# パスワードリセット用Tokenの有効期間(30分)
+PASSWORD_RESET_TOKEN_EXPIRE = 60 * 30
+
+SESSION_COOKIE_AGE = 60 * 60 * 9 # 9時間 - セッション時間は自動的に伸ばす。
+SESSION_SAVE_EVERY_REQUEST = True
+
+# CORSの設定
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = (os.environ.get("TRUSTED_ORIGINS").split(" "))
+CORS_PREFLIGHT_MAX_AGE = 60 * 30 #30分だけ
+
+if DEBUG:
+    EMAIL_HOST = 'mail'
+    EMAIL_HOST_USER = ''
+    EMAIL_HOST_PASSWORD = ''
+    EMAIL_PORT = 1025
+    EMAIL_USE_TLS = False
+
+    SESSION_COOKIE_SAMESITE = 'Strict'
+    SESSION_COOKIE_SECURE = False
+    SESSION_COOKIE_HTTPONLY = False
+    CSRF_COOKIE_SAMESITE = 'Strict'
+    CSRF_COOKIE_SECURE = False
+    CSRF_COOKIE_HTTPONLY = False
+    CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1']
+
+else:
+    EMAIL_HOST = 'localhost'
+    EMAIL_POST = '8025'
+    EMAIL_HOST_USER = ''
+    EMAIL_HOST_PASSWORD = ''
+    EMAIL_USE_TLS = False
+
+    SESSION_COOKIE_SAMESITE = 'None'
+    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_HTTPONLY = True
+    CSRF_COOKIE_SAMESITE = 'None'
+    CSRF_COOKIE_SECURE = True
+    CSRF_COOKIE_HTTPONLY = True
+    CSRF_TRUSTED_ORIGINS = os.environ.get("TRUSTED_ORIGINS").split(" ")
