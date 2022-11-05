@@ -20,13 +20,15 @@ class User(AbstractUser):
         validators=[username_validator],
     )
     email = models.EmailField(max_length=254, unique=True)
-    created_by = models.ForeignKey("self", on_delete=models.DO_NOTHING, related_name='%(class)s_created_by')
-    updated_by = models.ForeignKey("self", on_delete=models.DO_NOTHING, related_name='%(class)s_updated_by')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = "employee_number"
     REQUIRED_FIELDS = ["email","username"]
+
+    class Meta:
+        ordering = ["employee_number"]
+        db_table = "User"
 
     def __str__(self):
         return self.username
