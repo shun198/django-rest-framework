@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth.password_validation import validate_password
 from .models import (
     User,
     Book,
@@ -23,6 +24,16 @@ class LoginSerializer(serializers.ModelSerializer):
         model = User
         fields = ["employee_number",'email', "username", 'password']
 
+class ChangePasswordSerializer(serializers.Serializer):
+    current_password = serializers.CharField(max_length=64)
+    new_password = serializers.CharField(max_length=64)
+    confirm_password = serializers.CharField(max_length=64)
+
+    def validate(self, data):
+        if data['new_password'] != data['confirm_password']:
+            raise serializers.ValidationError("パスワードと確認パスワードは異なります。")
+        validate_password(data['new_password'])
+        return data
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:

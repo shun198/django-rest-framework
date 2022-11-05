@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from relationships.serializers import (
     LoginSerializer,
     UserSerilaizer,
+    ChangePasswordSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
 from relationships.models import User
@@ -16,6 +17,8 @@ class UserViewSet(ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'login':
             return LoginSerializer
+        elif self.action == 'change_password':
+            return ChangePasswordSerializer
         else:
             return UserSerilaizer
 
