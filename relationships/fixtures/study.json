@@ -1,10 +1,37 @@
 [
     {
+        "model": "relationships.User",
+        "pk": 1,
+        "fields": {
+            "employee_number": "00000001",
+            "username":"test01",
+            "password":"pbkdf2_sha256$390000$KF4YHJxvWjSODaXdxLBg6S$U5XDh8mR77kMMUtlRcBZS/bkaxdpjNR/P4zyy25g3/I=",
+            "email":"test01@example.com",
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "updated_at": "2022-07-28T00:31:09.732Z"
+        }
+    },
+    {
+        "model": "relationships.User",
+        "pk": 2,
+        "fields": {
+            "employee_number": "00000002",
+            "username":"test02",
+            "password":"pbkdf2_sha256$390000$KF4YHJxvWjSODaXdxLBg6S$U5XDh8mR77kMMUtlRcBZS/bkaxdpjNR/P4zyy25g3/I=",
+            "email":"test02@example.com",
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "updated_at": "2022-07-28T00:31:09.732Z"
+        }
+    },
+    {
         "model": "relationships.Book",
         "pk": 1,
         "fields": {
             "title": "ハリー・ポッターと賢者の石",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":1,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":1
         }
     },
     {
@@ -12,7 +39,10 @@
         "pk": 2,
         "fields": {
             "title": "ノルウェーの森",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":2,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":2
         }
     },
     {
@@ -21,7 +51,10 @@
         "fields": {
             "book": 1,
             "name": "J・K・ローリング",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":1,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":1
         }
     },
     {
@@ -30,7 +63,10 @@
         "fields": {
             "book": 2,
             "name": "村上春樹",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":2,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":2
         }
     },
     {
@@ -45,7 +81,10 @@
                 1,
                 2
             ],
-            "created_at": "2022-07-21T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":1,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":1
         }
     },
     {
@@ -60,7 +99,10 @@
                 1,
                 2
             ],
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":2,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":2
         }
     },
     {
@@ -71,7 +113,10 @@
             "kana": "マルマルカブシキガイシャ",
             "name": "丸々株式会社",
             "phone_no": "0801112222",
-            "created_at": "2022-07-21T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":1,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":1
         }
     },
     {
@@ -82,7 +127,10 @@
             "kana": "カブシキガイシャシカク",
             "name": "株式会社四角",
             "phone_no": "0803334444",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":2,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":2
         }
     },
     {
@@ -95,7 +143,10 @@
             "type": 0,
             "bank": "銀行01",
             "branch": "大阪支店",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":1,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":1
         }
     },
     {
@@ -108,7 +159,10 @@
             "type": 1,
             "bank": "銀行02",
             "branch": "京都支店",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":2,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":2
         }
     },
     {
@@ -118,7 +172,8 @@
             "customer": 1,
             "order_no": "00011122",
             "count": "2",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":1
         }
     },
     {
@@ -128,7 +183,8 @@
             "customer": 2,
             "order_no": "11122233",
             "count": "3",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":2
         }
     },
     {
@@ -138,7 +194,10 @@
             "order": 1,
             "item_no": "00011122",
             "name":"ソファー",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":1,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":1
         }
     },
     {
@@ -148,7 +207,10 @@
             "order": 2,
             "item_no": "11122233",
             "name":"勉強机",
-            "created_at": "2022-07-28T00:31:09.732Z"
+            "created_at": "2022-07-28T00:31:09.732Z",
+            "created_by":2,
+            "updated_at": "2022-07-28T00:31:09.732Z",
+            "updated_by":2
         }
     }
 ]

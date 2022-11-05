@@ -13,7 +13,12 @@ class User(AbstractUser):
     date_joined = None
     groups = None
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    employee_number = models.CharField(unique=True, validators=[RegexValidator(r'^[0-9]{8}$')], max_length=8)
+    employee_number = models.CharField(
+        unique=True,
+        validators=[RegexValidator(r'^[0-9]{8}$')],
+        max_length=8,
+        verbose_name="社員番号",
+    )
     username = models.CharField(
         max_length=150,
         unique=True,
