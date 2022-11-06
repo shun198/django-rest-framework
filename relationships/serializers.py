@@ -19,11 +19,10 @@ class UserSerilaizer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.ModelSerializer):
     employee_number = serializers.CharField(max_length=255)
-    email = serializers.EmailField(max_length=254)
 
     class Meta:
         model = User
-        fields = ["employee_number",'email', "username", "password"]
+        fields = ["employee_number","password"]
 
 
 class ChangePasswordSerializer(serializers.Serializer):

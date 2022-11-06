@@ -8,6 +8,11 @@ from django.contrib.auth.validators import UnicodeUsernameValidator
 class User(AbstractUser):
     username_validator = UnicodeUsernameValidator()
 
+    class Role(models.IntegerChoices):
+        MANAGEMENT = 0
+        GENERAL = 1
+        PART_TIME = 2
+
     first_name = None
     last_name = None
     date_joined = None
@@ -25,6 +30,7 @@ class User(AbstractUser):
         validators=[username_validator],
     )
     email = models.EmailField(max_length=254, unique=True)
+    role = models.PositiveIntegerField(choices=Role.choices, default=Role.PART_TIME)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
