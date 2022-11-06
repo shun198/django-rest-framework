@@ -1,5 +1,5 @@
-from django.http import JsonResponse,HttpResponse
-from rest_framework.permissions import IsAuthenticated
+from django.http import JsonResponse, HttpResponse
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.core.exceptions import ObjectDoesNotExist
 from study import settings
 from .permissions import (
@@ -95,5 +95,5 @@ class UserViewSet(ModelViewSet):
         elif self.action == ["list","retrieve"]:
             permission_classes = [IsAuthenticated]
         else:
-            permission_classes = [IsGeneralUser]
+            permission_classes = [AllowAny]
         return [permission() for permission in permission_classes]

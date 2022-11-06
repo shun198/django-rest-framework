@@ -18,7 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.ModelSerializer):
-    employee_number = serializers.CharField(max_length=255)
+    # uniquekeyを外すためにオーバーライド
+    employee_number = serializers.CharField(max_length=8)
 
     class Meta:
         model = User
@@ -51,7 +52,8 @@ class ResetPasswordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['password', 'confirm_password', 'token']
+        # fields = ['password', 'confirm_password', 'token']
+        fields = ['password', 'confirm_password']
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
