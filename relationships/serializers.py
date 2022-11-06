@@ -13,8 +13,9 @@ from .models import (
 class UserSerilaizer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id","employee_number",'username', "email", "created_at","updated_at",'password']
-        read_only_fields = ["id", "created_at","updated_at",'password']
+        fields = ["id","employee_number","username", "email", "created_at","updated_at"]
+        read_only_fields = ["id", "created_at","updated_at"]
+
 
 class LoginSerializer(serializers.ModelSerializer):
     employee_number = serializers.CharField(max_length=255)
@@ -22,7 +23,8 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["employee_number",'email', "username", 'password']
+        fields = ["employee_number",'email', "username", "password"]
+
 
 class ChangePasswordSerializer(serializers.Serializer):
     current_password = serializers.CharField(max_length=64)
@@ -30,10 +32,32 @@ class ChangePasswordSerializer(serializers.Serializer):
     confirm_password = serializers.CharField(max_length=64)
 
     def validate(self, data):
-        if data['new_password'] != data['confirm_password']:
+        if data["new_password"] != data["confirm_password"]:
             raise serializers.ValidationError("new password and confirmation password is incorrect")
-        validate_password(data['new_password'])
+        validate_password(data["new_password"])
         return data
+
+class InviteUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'employee_number', 'username']
+
+class EmailSerializer(serializers.Serializer):
+    email = serializers.EmailField(max_length=255)
+
+class ResetPasswordSerializer(serializers.ModelSerializer):
+    confirm_password = serializers.CharField(max_length=64)
+    token = serializers.CharField(max_length=255)
+
+    def validate(self, data):
+        if data['password'] != data['confirm_password']:
+            raise serializers.ValidationError("パスワードと確認パスワードは異なります。")
+        validate_password(data['password'])
+        return data
+
+    class Meta:
+        model = User
+        fields = ['password', 'confirm_password', 'token']
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
