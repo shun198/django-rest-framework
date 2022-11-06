@@ -1,4 +1,6 @@
 from django.http import JsonResponse,HttpResponse
+from rest_framework.permissions import IsAuthenticated
+from .permissions import IsGeneralUser, IsSuperUser
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import action
 from .serializers import (
@@ -51,3 +53,12 @@ class UserViewSet(ModelViewSet):
     def logout(self, request):
         logout(request)
         return HttpResponse()
+
+    def get_permissions(self):
+        if self.action in ["create", "update", "partial_update"]:
+            permission_classes = [IsGeneralUser]
+        elif self.action == 'destroy':
+            permission_classes = [IsSuperUser]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]

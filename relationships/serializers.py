@@ -10,7 +10,7 @@ from .models import (
 )
 
 
-class UserSerilaizer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["id","employee_number","username", "email", "created_at","updated_at"]
@@ -19,6 +19,7 @@ class UserSerilaizer(serializers.ModelSerializer):
 
 class LoginSerializer(serializers.ModelSerializer):
     employee_number = serializers.CharField(max_length=255)
+    email = serializers.EmailField(max_length=254)
 
     class Meta:
         model = User
