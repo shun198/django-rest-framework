@@ -13,13 +13,12 @@ from .models import (
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id","employee_number","username", "email", "created_at","updated_at"]
+        fields = ["id","employee_number","username", "email", "role", "created_at", "updated_at"]
         read_only_fields = ["id", "created_at","updated_at"]
 
 
 class LoginSerializer(serializers.ModelSerializer):
     employee_number = serializers.CharField(max_length=255)
-    email = serializers.EmailField(max_length=254)
 
     class Meta:
         model = User
@@ -37,17 +36,12 @@ class ChangePasswordSerializer(serializers.Serializer):
         validate_password(data["new_password"])
         return data
 
-class InviteUserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['email', 'employee_number', 'username']
-
 class EmailSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=255)
 
 class ResetPasswordSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(max_length=64)
-    token = serializers.CharField(max_length=255)
+    # token = serializers.CharField(max_length=255)
 
     def validate(self, data):
         if data['password'] != data['confirm_password']:

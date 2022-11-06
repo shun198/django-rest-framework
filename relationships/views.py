@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action,api_view
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -24,7 +25,10 @@ from .filters import (
     CustomerFilter,
     WorkPlaceFilter,
 )
-
+from .permissions import (
+    IsGeneralUser,
+    IsSuperUser,
+)
 
 # Create your views here.
 @api_view(['GET'])
@@ -39,21 +43,27 @@ class BookViewSets(viewsets.ModelViewSet):
         book = Book.objects.values("id","name")
         return Response(book)
 
-    @action(methods=['POST'], detail=True)
-    def post_books(self,request,pk=None):
-        book = self.get_object()
-        serializer = self.get_serializer(book,data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    def get_permissions(self):
+        if self.action in ["create", "update", "partial_update"]:
+            permission_classes = [IsGeneralUser]
+        elif self.action == 'destroy':
+            permission_classes = [IsSuperUser]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
 
 class AuthorViewSets(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
 
+    def get_permissions(self):
+        if self.action in ["create", "update", "partial_update"]:
+            permission_classes = [IsGeneralUser]
+        elif self.action == 'destroy':
+            permission_classes = [IsSuperUser]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
 
 class CustomerViewSets(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
@@ -62,6 +72,14 @@ class CustomerViewSets(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = CustomerFilter
 
+    def get_permissions(self):
+        if self.action in ["create", "update", "partial_update"]:
+            permission_classes = [IsGeneralUser]
+        elif self.action == 'destroy':
+            permission_classes = [IsSuperUser]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
 
 class WorkplaceViewSets(viewsets.ModelViewSet):
     queryset = Workplace.objects.all()
@@ -70,8 +88,24 @@ class WorkplaceViewSets(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = WorkPlaceFilter
 
+    def get_permissions(self):
+        if self.action in ["create", "update", "partial_update"]:
+            permission_classes = [IsGeneralUser]
+        elif self.action == 'destroy':
+            permission_classes = [IsSuperUser]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
 class BankViewSets(viewsets.ModelViewSet):
     queryset = Bank.objects.all()
     serializer_class = BankSerializer
 
-
+    def get_permissions(self):
+        if self.action in ["create", "update", "partial_update"]:
+            permission_classes = [IsGeneralUser]
+        elif self.action == 'destroy':
+            permission_classes = [IsSuperUser]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
