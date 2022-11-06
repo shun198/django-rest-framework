@@ -52,31 +52,49 @@ class UserViewSet(ModelViewSet):
             login(request, user)
             return JsonResponse(data={'role': user.Role(user.role).name})
 
-    @action(methods=["POST"], detail=False)
+    @action(methods=["POST"], detail=False,permission_classes=[])
     def logout(self, request):
         logout(request)
         return HttpResponse()
 
+    @action(methods=["POST"], detail=False)
+    def change_password(self, request):
+        serializer = ChangePasswordSerializer(data=request.data)
+        if not serializer.is_valid():
+            return JsonResponse(serializer.errors, status=400)
+
+        user = request.user
+
+        if user.check_password(serializer.validated_data['current_password']):
+            user.set_password(serializer.validated_data['new_password'])
+            user.save()
+            return HttpResponse()
+        else:
+            return JsonResponse(data={"msg": "current password is incorrect"}, status=400)
+
     @action(detail=False, methods=["POST"], permission_classes=[IsManagementUser])
     def send_invite_user_mail(self, request):
         serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        username = serializer.validated_data.get("username")
-        name = serializer.validated_data.get("name")
+        if not serializer.is_valid():
+            return JsonResponse(serializer.errors, status=400)
+
+        employee_number = serializer.validated_data.get("employee_number")
         email = serializer.validated_data.get("email")
         data = {
-            'username': username,
+            'employee_number': employee_number,
             'email': email,
         }
         # token = generate_token(data, settings.VERIFY_USER_TOKEN_EXPIRE)
         serializer.save()
-        send_welcome_email(user_email=email, username=name)
+        send_welcome_email(user_email=email, employee_number=employee_number)
         return HttpResponse()
 
     @action(detail=False, methods=["POST"], permission_classes=[IsManagementUser])
     def send_reset_password_mail(self, request):
         serializer = EmailSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            return JsonResponse(serializer.errors, status=400)
+
         email = serializer.data.get("email")
         try:
             User.objects.get(email=email)
@@ -88,8 +106,10 @@ class UserViewSet(ModelViewSet):
         return HttpResponse()
 
     def get_permissions(self):
-        if self.action in ["create", "update", "partial_update"]:
+        if self.action in ["update", "partial_update"]:
             permission_classes = [IsManagementUser]
+        if self.action == "create":
+            permission_classes = [IsGeneralUser]
         elif self.action == "destroy":
             permission_classes = [IsSuperUser]
         elif self.action == ["list","retrieve"]:
