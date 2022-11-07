@@ -1,7 +1,6 @@
 from django.http import JsonResponse, HttpResponse
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.core.exceptions import ObjectDoesNotExist
-from study import settings
 from .permissions import (
     IsManagementUser,
     IsGeneralUser,
@@ -19,7 +18,6 @@ from .serializers import (
 from rest_framework.viewsets import ModelViewSet
 from .models import User
 from .emails import send_welcome_email, send_password_reset
-from .tokens import generate_token
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
@@ -84,7 +82,6 @@ class UserViewSet(ModelViewSet):
             'employee_number': employee_number,
             'email': email,
         }
-        # token = generate_token(data, settings.VERIFY_USER_TOKEN_EXPIRE)
         serializer.save()
         send_welcome_email(user_email=email, employee_number=employee_number)
         return HttpResponse()
@@ -101,7 +98,6 @@ class UserViewSet(ModelViewSet):
         except ObjectDoesNotExist:
             return HttpResponse()
         data = {"email": email}
-        # token = generate_token(data, settings.PASSWORD_RESET_TOKEN_EXPIRE)
         send_password_reset(email)
         return HttpResponse()
 

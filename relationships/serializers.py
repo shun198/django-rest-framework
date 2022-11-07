@@ -42,7 +42,6 @@ class EmailSerializer(serializers.Serializer):
 
 class ResetPasswordSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(max_length=64)
-    # token = serializers.CharField(max_length=255)
 
     def validate(self, data):
         if data['password'] != data['confirm_password']:
@@ -52,7 +51,6 @@ class ResetPasswordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        # fields = ['password', 'confirm_password', 'token']
         fields = ['password', 'confirm_password']
 
 class BookSerializer(serializers.ModelSerializer):
