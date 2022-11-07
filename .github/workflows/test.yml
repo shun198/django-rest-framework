@@ -46,4 +46,4 @@ jobs:
       #     TRUSTED_ORIGINS: ${{ secrets.TRUSTED_ORIGINS }}
       - name: Test
         run:
-          docker-compose run --rm app sh -c "python manage.py test"
+          docker-compose run --rm app sh -c "poetry run python manage.py test"
