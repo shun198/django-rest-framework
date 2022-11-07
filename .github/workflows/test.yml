@@ -23,8 +23,8 @@ jobs:
         run: ls -la .git/git-crypt/keys/default
       - name: investigate the user
         run: whoami
-      # - name: give root permissions to execute .git/git-crypt/keys/default
-      #   run: sudo .git/git-crypt/keys/default
+      - name: give root permissions to execute .git/git-crypt/keys/default
+        run: sudo chmod 755 .git/git-crypt/keys/default
       # - name: generate .env
       #   run: |
       #     # DB
