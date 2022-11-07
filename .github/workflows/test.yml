@@ -23,29 +23,8 @@ jobs:
         run: ls -la .git/git-crypt/keys/default
       - name: investigate the user
         run: whoami
-      - name: give root permissions to execute .git/git-crypt/keys/default
+      - name: give permissions to execute .git/git-crypt/keys/default
         run: sudo chmod 755 .git/git-crypt/keys/default
-      # - name: generate .env
-      #   run: |
-      #     # DB
-      #     echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env.local
-      #     echo "MYSQL_USER=$MYSQL_USER" >> .env.local
-      #     echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env.local
-      #     echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env.local
-      #     # Django
-      #     echo "SECRET_KEY=$SECRET_KEY" >> .env.local
-      #     echo "DJANGO_ALLOWED_HOSTS=$DJANGO_ALLOWED_HOSTS" >> .env.local
-      #     echo "DEBUG=$DEBUG" >> .env.local
-      #     echo "TRUSTED_ORIGINS=$TRUSTED_ORIGINS" >> .env.local
-      #   env:
-      #     MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-      #     MYSQL_USER: ${{ secrets.MYSQL_USER }}
-      #     MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-      #     MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-      #     SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      #     DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
-      #     DEBUG: ${{ secrets.DEBUG }}
-      #     TRUSTED_ORIGINS: ${{ secrets.TRUSTED_ORIGINS }}
       - name: Test
         run:
           docker-compose run --rm app sh -c "poetry run python manage.py test"
