@@ -7,14 +7,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: look inside .env.local before decrypting
+        run: cat .env.local
       - name: Unlock secrets
         uses: sliteteam/github-action-git-crypt-unlock@1.2.0
         env:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
-      - name: look inside .env.local
+      - name: look inside .env.local after decrypting
         run: cat .env.local
       - name: look at files inside repository
         run: ls -la
+      - name: look at permissions of .git/git-crypt/keys/default
+        run: ls -la .git/git-crypt/keys/default
       # - name: generate .env
       #   run: |
       #     # DB
