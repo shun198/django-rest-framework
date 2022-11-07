@@ -14,14 +14,15 @@ jobs:
       - name: generate .env
         run: |
           # DB
-          echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
-          echo "MYSQL_USER=$MYSQL_USER" >> .env
-          echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env
-          echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env
+          echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env.local
+          echo "MYSQL_USER=$MYSQL_USER" >> .env.local
+          echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env.local
+          echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env.local
           # Django
-          echo "SECRET_KEY=$SECRET_KEY" >> .env
-          echo "DJANGO_ALLOWED_HOSTS=$DJANGO_ALLOWED_HOSTS" >> .env
-          echo "DEBUG=$DEBUG" >> .env
+          echo "SECRET_KEY=$SECRET_KEY" >> .env.local
+          echo "DJANGO_ALLOWED_HOSTS=$DJANGO_ALLOWED_HOSTS" >> .env.local
+          echo "DEBUG=$DEBUG" >> .env.local
+          echo "TRUSTED_ORIGINS=$TRUSTED_ORIGINS" >> .env.local
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
@@ -30,6 +31,7 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
           DEBUG: ${{ secrets.DEBUG }}
+          TRUSTED_ORIGINS: ${{ secrets.TRUSTED_ORIGINS }}
       - name: Test
         run:
           docker-compose run --rm app sh -c "python manage.py test"
