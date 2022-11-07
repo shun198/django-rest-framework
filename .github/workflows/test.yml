@@ -19,6 +19,8 @@ jobs:
         run: ls -la
       - name: look at permissions of .git/git-crypt/keys/default
         run: ls -la .git/git-crypt/keys/default
+      - name: give execute permissions to .git/git-crypt/keys/default
+        run: chmod 755 .git/git-crypt/keys/default
       # - name: generate .env
       #   run: |
       #     # DB
