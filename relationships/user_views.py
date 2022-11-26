@@ -14,13 +14,19 @@ from .serializers import (
     ChangePasswordSerializer,
     EmailSerializer,
     ResetPasswordSerializer,
+    CustomerSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
-from .models import User
+from .models import User,Customer
 from .emails import send_welcome_email, send_password_reset
 
 class UserViewSet(ModelViewSet):
-    queryset = User.objects.all()
+    def get_queryset(self):
+        if self.action == "send_invite_user_mail":
+            return Customer.objects.all()
+        else:
+            return User.objects.all()
+
 
     def get_serializer_class(self):
         if self.action in ["login","logout"]:
@@ -28,7 +34,7 @@ class UserViewSet(ModelViewSet):
         elif self.action == "change_password":
             return ChangePasswordSerializer
         elif self.action == "send_invite_user_mail":
-            return EmailSerializer
+            return CustomerSerializer
         elif self.action == "send_reset_password_mail":
             return ResetPasswordSerializer
         else:
@@ -76,14 +82,9 @@ class UserViewSet(ModelViewSet):
         if not serializer.is_valid():
             return JsonResponse(serializer.errors, status=400)
 
-        employee_number = serializer.validated_data.get("employee_number")
+        name = serializer.validated_data.get("name")
         email = serializer.validated_data.get("email")
-        data = {
-            'employee_number': employee_number,
-            'email': email,
-        }
-        serializer.save()
-        send_welcome_email(user_email=email, employee_number=employee_number)
+        send_welcome_email(name=name,email=email)
         return HttpResponse()
 
     @action(detail=False, methods=["POST"], permission_classes=[IsManagementUser])

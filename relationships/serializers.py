@@ -74,8 +74,8 @@ class AuthorSerializer(serializers.ModelSerializer):
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        fields = ["id","kana","name","age","post_no","created_at"]
-        read_only_fields = ["id","created_at"]
+        fields = "__all__"
+        read_only_fields = ["id","created_at","created_by","updated_at","updated_by"]
 
     def to_representation(self, instance):
         # superがあることでretは全てのメソッドとプロパティを引き継ぐ

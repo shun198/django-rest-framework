@@ -15,14 +15,14 @@ def send_password_reset(user_email, url):
     )
 
 
-def send_welcome_email(user_email, employee_number, url):
-    plaintext = render_to_string("../templates/welcome_email.txt", {"employee_number": employee_number, "url": url})
-    html_text = render_to_string("../templates/welcome_email.html", {"employee_number": employee_number, "url": url})
+def send_welcome_email(name,email):
+    plaintext = render_to_string("../templates/welcome_email.txt")
+    html_text = render_to_string("../templates/welcome_email.html")
 
     mail.send_mail(
-        subject="ようこそ",
+        subject=f"ようこそ、{name}さん",
         message=plaintext,
         from_email="example@mail.com",
-        recipient_list=[user_email],
+        recipient_list=[email],
         html_message=html_text,
     )
