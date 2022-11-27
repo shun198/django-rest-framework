@@ -76,7 +76,13 @@ class Author(models.Model):
 
 class Customer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=50)
+    kana = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    book = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
+    age = models.PositiveSmallIntegerField()
+    post_no = models.CharField(
+        max_length=7, validators=[RegexValidator(r"^[0-9]{7}$", "7桁の数字を入力してください。")]
+    )
     email = models.EmailField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='%(class)s_created_by')
