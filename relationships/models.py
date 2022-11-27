@@ -32,6 +32,7 @@ class User(AbstractUser):
     email = models.EmailField(max_length=254, unique=True)
     role = models.PositiveIntegerField(choices=Role.choices, default=Role.PART_TIME)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_superuser = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = "employee_number"

@@ -2,9 +2,10 @@ from django.http import JsonResponse, HttpResponse
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.core.exceptions import ObjectDoesNotExist
 from .permissions import (
+    IsSuperUser,
     IsManagementUser,
     IsGeneralUser,
-    IsSuperUser,
+    IsPartTimeUser,
 )
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import action
@@ -26,7 +27,6 @@ class UserViewSet(ModelViewSet):
             return Customer.objects.all()
         else:
             return User.objects.all()
-
 
     def get_serializer_class(self):
         if self.action in ["login","logout"]:
@@ -109,8 +109,10 @@ class UserViewSet(ModelViewSet):
             permission_classes = [IsGeneralUser]
         elif self.action == "destroy":
             permission_classes = [IsSuperUser]
-        elif self.action == ["list","retrieve"]:
-            permission_classes = [IsAuthenticated]
-        else:
+        elif self.action in ["list","retrieve"]:
+            permission_classes = [IsPartTimeUser]
+        elif self.action in ["login"]:
             permission_classes = [AllowAny]
+        else:
+            permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]

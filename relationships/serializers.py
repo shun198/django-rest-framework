@@ -13,8 +13,8 @@ from .models import (
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["id","employee_number","username", "email", "role", "created_at", "updated_at"]
-        read_only_fields = ["id", "created_at","updated_at"]
+        fields = "id","employee_number","username","email","role","is_superuser"
+        read_only_fields = ["created_at","updated_at","created_by","updated_by"]
 
 
 class LoginSerializer(serializers.ModelSerializer):
