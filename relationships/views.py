@@ -1,3 +1,4 @@
+import csv, io,datetime
 from rest_framework import viewsets
 from rest_framework.decorators import action,api_view
 from django_filters.rest_framework import DjangoFilterBackend
@@ -19,6 +20,8 @@ from .serializers import (
     CustomerSerializer,
     WorkplaceSerializer,
     BankSerializer,
+    CreateCustomerSerializer,
+    DetailCustomerSerializer,
 )
 from .models import Author, Customer, Book,Workplace,Bank
 from .filters import (
@@ -67,10 +70,18 @@ class AuthorViewSets(viewsets.ModelViewSet):
 
 class CustomerViewSets(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
     # django-filter backendを追加
-    filter_backends = (DjangoFilterBackend,)
-    filterset_class = CustomerFilter
+    # filter_backends = (DjangoFilterBackend,)
+    # filterset_class = CustomerFilter
+
+    # POSTの時だけ
+    def get_serializer_class(self):
+        if self.action == "create":
+            return CreateCustomerSerializer
+        elif self.action == "retrieve":
+            return DetailCustomerSerializer
+        else:
+            return CustomerSerializer
 
     def get_permissions(self):
         if self.action in ["create", "update", "partial_update"]:
@@ -80,6 +91,35 @@ class CustomerViewSets(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
+
+
+    def create(self, request, *args, **kwargs):
+        csv_file = request.FILES["file"]
+        decoded_file = csv_file.read().decode("utf-8")
+        io_string = io.StringIO(decoded_file)
+        # header(1行目)を無視
+        header = next(csv.reader(io_string))
+        for row in csv.reader(io_string, delimiter=","):
+            year = int(row[2].split("/")[0])
+            month = int(row[2].split("/")[1])
+            day = int(row[2].split("/")[2])
+            birthday = datetime.date(year, month, day)
+            # Customerに必要なデータ
+            csv_data = {
+                "name": row[0],
+                "kana": row[1],
+                "birthday": birthday,
+                "post_no": row[3],
+                "phone_no": "0" + row[4],
+                "email": row[5],
+            }
+            serializer = CustomerSerializer(data=csv_data)
+            if serializer.is_valid():
+                serializer.save(created_by=request.user,updated_by=request.user)
+            else:
+                return JsonResponse({"msg":"CSVファイルのアップロードに失敗しました"},status=status.HTTP_400_CREATED)
+        return JsonResponse({"msg":"CSVファイルのアップロードに成功しました"},status=status.HTTP_201_CREATED)
+
 
 class WorkplaceViewSets(viewsets.ModelViewSet):
     queryset = Workplace.objects.all()
@@ -109,3 +149,5 @@ class BankViewSets(viewsets.ModelViewSet):
         else:
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
+
+

@@ -75,7 +75,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = "__all__"
-        read_only_fields = ["id","created_at","created_by","updated_at","updated_by"]
+        read_only_fields = ["created_at","created_by","updated_at","updated_by"]
 
     def to_representation(self, instance):
         # superがあることでretは全てのメソッドとプロパティを引き継ぐ
@@ -114,3 +114,24 @@ class BankSerializer(serializers.ModelSerializer):
         fields = ["id","customer", "holder","number","type","bank","branch","created_at"]
         read_only_fields = ["id","created_at"]
 
+
+class CreateCustomerSerializer(serializers.Serializer):
+    file = serializers.FileField()
+
+
+class DetailCustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = "__all__"
+        read_only_fields = ["created_at","created_by","updated_at","updated_by"]
+
+    def to_representation(self,instance):
+        rep = {
+            "workplace" :WorkplaceSerializer(
+                instance=instance.workplace, many=True
+            ).data,
+            "bank" :BankSerializer(
+                instance=instance.bank, many=True
+            ).data,
+        }
+        return rep

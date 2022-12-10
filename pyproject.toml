@@ -15,6 +15,10 @@ django-debug-toolbar = "^3.7.0"
 Authlib = "^1.1.0"
 django-cors-headers = "^3.13.0"
 pytest = "^7.2.0"
+pytest-custom-exit-code = "^0.3.0"
+pytest-cov = "^4.0.0"
+pytest-django = "^4.5.2"
+pytest-sugar = "^0.9.6"
 
 [tool.poetry.group.dev.dependencies]
 Django = "^4.1.2"

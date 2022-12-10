@@ -79,10 +79,15 @@ class Customer(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     kana = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
-    book = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
-    age = models.PositiveSmallIntegerField()
+    birthday = models.DateField()
     post_no = models.CharField(
         max_length=7, validators=[RegexValidator(r"^[0-9]{7}$", "7桁の数字を入力してください。")]
+    )
+    phone_no = models.CharField(
+        max_length=11,
+        validators=[RegexValidator(r"^[0-9]{10,11}$", "10桁の数字を入力してください。")],
+        null=True,
+        blank=True,
     )
     email = models.EmailField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -124,6 +129,7 @@ class Bank(models.Model):
     class AccountType(models.IntegerChoices):
         ORDINARY = 0
         CURRENT = 1
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE,related_name="bank")
     holder = models.CharField(max_length=255)
@@ -149,6 +155,7 @@ class Bank(models.Model):
 
 # 注文
 class Order(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE,related_name="order")
     order_no = models.CharField(
         max_length=8,
@@ -167,6 +174,7 @@ class Order(models.Model):
 
 # 商品
 class Item(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     order = models.ForeignKey(Order, on_delete=models.CASCADE,related_name="item")
     item_no = models.CharField(
         max_length=8,
@@ -184,3 +192,4 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+

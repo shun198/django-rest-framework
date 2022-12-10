@@ -34,7 +34,7 @@ class UserViewSet(ModelViewSet):
         elif self.action == "change_password":
             return ChangePasswordSerializer
         elif self.action == "send_invite_user_mail":
-            return CustomerSerializer
+            return EmailSerializer
         elif self.action == "send_reset_password_mail":
             return ResetPasswordSerializer
         else:
@@ -82,9 +82,8 @@ class UserViewSet(ModelViewSet):
         if not serializer.is_valid():
             return JsonResponse(serializer.errors, status=400)
 
-        name = serializer.validated_data.get("name")
         email = serializer.validated_data.get("email")
-        send_welcome_email(name=name,email=email)
+        send_welcome_email(email=email)
         return HttpResponse()
 
     @action(detail=False, methods=["POST"], permission_classes=[IsManagementUser])

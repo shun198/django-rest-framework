@@ -15,12 +15,12 @@ def send_password_reset(user_email, url):
     )
 
 
-def send_welcome_email(name,email):
+def send_welcome_email(email):
     plaintext = render_to_string("../templates/welcome_email.txt")
     html_text = render_to_string("../templates/welcome_email.html")
 
     mail.send_mail(
-        subject=f"ようこそ、{name}さん",
+        subject="ようこそ",
         message=plaintext,
         from_email="example@mail.com",
         recipient_list=[email],
