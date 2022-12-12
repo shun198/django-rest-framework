@@ -31,6 +31,6 @@ jobs:
           DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
           DEBUG: ${{ secrets.DEBUG }}
       - name: Test
-        run:
+        run: |
           docker-compose up -d --build
-          docker-compose exec poetry run pytest --suppress-no-test-exit-code --cov --cov-branch --cov-report=term-missing --junitxml=pytest.xml test | tee pytest-coverage.txt
+          docker-compose exec -T poetry run pytest --suppress-no-test-exit-code --cov --cov-branch --cov-report=term-missing --junitxml=pytest.xml test | tee pytest-coverage.txt
