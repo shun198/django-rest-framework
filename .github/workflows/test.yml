@@ -9,15 +9,12 @@ jobs:
         uses: actions/checkout@v2
       - name: generate .env
         run: |
-          # DB
           echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
           echo "MYSQL_USER=$MYSQL_USER" >> .env
           echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env
           echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env
           echo "MYSQL_HOST=$MYSQL_HOST" >> .env
           echo "MYSQL_PORT=$MYSQL_PORT" >> .env
-
-          # Django
           echo "SECRET_KEY=$SECRET_KEY" >> .env
           echo "DJANGO_ALLOWED_HOSTS=$DJANGO_ALLOWED_HOSTS" >> .env
           echo "DEBUG=$DEBUG" >> .env
@@ -33,4 +30,4 @@ jobs:
       - name: Test
         run: |
           docker-compose up -d --build
-          docker-compose exec -T poetry run pytest --suppress-no-test-exit-code --cov --cov-branch --cov-report=term-missing --junitxml=pytest.xml test | tee pytest-coverage.txt
+          docker-compose exec -T poetry run pytest --cov --cov-branch --cov-report=term-missing -suppress-no-test-exit-code
