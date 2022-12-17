@@ -13,5 +13,10 @@
             "username": "django",
             "password": "django"
         }
-    ]
+    ],
+    "python.testing.pytestArgs": [
+        "relationships"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }

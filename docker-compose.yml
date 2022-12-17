@@ -5,6 +5,8 @@ services:
     container_name: mysql
     build:
       context: .
+      args:
+        - DEV=true
       dockerfile: containers/mysql/Dockerfile
     # M1チップでも動くように
     platform: linux/x86_64
@@ -32,7 +34,7 @@ services:
       - "8000:8000"
       # デバッグ用ポート
       - "8080:8080"
-    command: sh -c "chmod 755 /code/entrypoint.sh && /code/entrypoint.sh"
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
     env_file:
       - .env
     depends_on:

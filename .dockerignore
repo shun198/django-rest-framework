@@ -1,0 +1,21 @@
+# Git
+code/.git
+code/.gitignore
+
+# Docker
+code/.docker
+
+# Python
+code/__pycache__/
+code/*/__pycache__/
+code/*/*/__pycache__/
+code/*/*/*/__pycache__/e
+
+# pytest
+code/.pytest_cache
+
+# Markdown
+code/README.md
+
+# env files
+code/.env
