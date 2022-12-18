@@ -1,6 +1,8 @@
 from django.http import JsonResponse, HttpResponse
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import permissions
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.authentication import BasicAuthentication
 from .permissions import (
     IsSuperUser,
     IsManagementUser,
@@ -15,7 +17,6 @@ from .serializers import (
     ChangePasswordSerializer,
     EmailSerializer,
     ResetPasswordSerializer,
-    CustomerSerializer,
 )
 from rest_framework.viewsets import ModelViewSet
 from .models import User,Customer
@@ -41,7 +42,7 @@ class UserViewSet(ModelViewSet):
             return UserSerializer
 
     # permission_classes=[]がないと権限がなくてログインできない
-    @action(detail=False, methods=["POST"],permission_classes=[])
+    @action(detail=False, methods=["POST"],permission_classes=[AllowAny])
     def login(self, request):
         serializer = LoginSerializer(data=request.data)
         if not serializer.is_valid():
@@ -56,7 +57,7 @@ class UserViewSet(ModelViewSet):
             login(request, user)
             return JsonResponse(data={'role': user.Role(user.role).name})
 
-    @action(methods=["POST"], detail=False,permission_classes=[])
+    @action(methods=["POST"], detail=False,permission_classes=[AllowAny])
     def logout(self, request):
         logout(request)
         return HttpResponse()
@@ -86,7 +87,7 @@ class UserViewSet(ModelViewSet):
         send_welcome_email(email=email)
         return HttpResponse()
 
-    @action(detail=False, methods=["POST"], permission_classes=[IsManagementUser])
+    @action(detail=False, methods=["POST"], permission_classes=[AllowAny])
     def send_reset_password_mail(self, request):
         serializer = EmailSerializer(data=request.data)
         if not serializer.is_valid():
@@ -110,8 +111,8 @@ class UserViewSet(ModelViewSet):
             permission_classes = [IsSuperUser]
         elif self.action in ["list","retrieve"]:
             permission_classes = [IsPartTimeUser]
-        elif self.action in ["login"]:
+        elif self.action in ["login", "logout"]:
             permission_classes = [AllowAny]
         else:
-            permission_classes = [IsAuthenticated]
+            permission_classes = [permissions.IsAuthenticated]
         return [permission() for permission in permission_classes]

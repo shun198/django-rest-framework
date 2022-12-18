@@ -42,10 +42,6 @@ class BookViewSets(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-    def list(self,request):
-        book = Book.objects.values("id","name")
-        return Response(book)
-
     def get_permissions(self):
         if self.action in ["create", "update", "partial_update"]:
             permission_classes = [IsGeneralUser]
