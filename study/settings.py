@@ -156,8 +156,8 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "プロジェクト名",
-    "DESCRIPTION": "詳細",
+    "TITLE": "テスト用プロジェクト",
+    "DESCRIPTION": "テストで使用",
     "VERSION": "1.0.0",
     # オプション
     'SERVE_INCLUDE_SCHEMA': False,

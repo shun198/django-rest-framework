@@ -8,7 +8,32 @@ from .models import (
     Workplace,
     Bank,
 )
+from django.contrib.auth import (
+    authenticate,
+)
 
+
+class AuthTokenSerializer(serializers.Serializer):
+    # employee_numberとpassword用のFieldを自作
+    employee_number = serializers.CharField()
+    password = serializers.CharField(
+        # Swaggerを使う際にパスワードを
+        # style={"input_type":"password"},
+    )
+
+    def validate(self, attrs):
+        employee_number = attrs.get("employee_number")
+        password = attrs.get("password")
+        user = authenticate(
+            request=self.context.get("request"),
+            username=employee_number,
+            password=password,
+        )
+        if not user:
+            raise serializers.ValidationError()
+
+        attrs["user"] = user
+        return attrs
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

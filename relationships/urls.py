@@ -7,6 +7,7 @@ from relationships.views import (
     WorkplaceViewSets,
     BankViewSets,
     health_check,
+    CreateTokenView,
 )
 from relationships.user_views import (
     UserViewSet,
@@ -28,4 +29,5 @@ urlpatterns = [
     path(r'', include(router.urls)),
     # path(r'', include(customer_router.urls)),
     path("health/", health_check, name="health"),
+    path("token/", CreateTokenView.as_view(), name="token"),
 ]

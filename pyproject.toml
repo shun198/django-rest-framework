@@ -19,6 +19,7 @@ pytest-custom-exit-code = "^0.3.0"
 pytest-cov = "^4.0.0"
 pytest-django = "^4.5.2"
 pytest-sugar = "^0.9.6"
+djangorestframework-simplejwt = "^5.2.2"
 
 [tool.poetry.group.dev.dependencies]
 Django = "^4.1.2"
