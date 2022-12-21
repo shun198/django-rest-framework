@@ -22,7 +22,7 @@ from .serializers import (
     BankSerializer,
     CreateCustomerSerializer,
     DetailCustomerSerializer,
-    AuthTokenSerializer,
+    # AuthTokenSerializer,
 )
 from .models import Author, Customer, Book,Workplace,Bank
 from .filters import (
@@ -37,14 +37,14 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 
 
-class CreateTokenView(ObtainAuthToken):
-    # 自作した認証用シリアライザを使用
-    serializer_class = AuthTokenSerializer
+# class CreateTokenView(ObtainAuthToken):
+#     # 自作した認証用シリアライザを使用
+#     serializer_class = AuthTokenSerializer
 
 # Create your views here.
 @api_view(['GET'])
 def health_check(request):
-        return JsonResponse(data={"msg":"pass"},status=200)
+    return JsonResponse(data={"msg":"pass"},status=200)
 
 class BookViewSets(viewsets.ModelViewSet):
     queryset = Book.objects.all()

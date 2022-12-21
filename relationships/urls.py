@@ -7,11 +7,12 @@ from relationships.views import (
     WorkplaceViewSets,
     BankViewSets,
     health_check,
-    CreateTokenView,
+    # CreateTokenView,
 )
 from relationships.user_views import (
     UserViewSet,
 )
+from rest_framework_simplejwt.views import TokenVerifyView
 
 # Create a router and register our viewsets with it.
 router = routers.DefaultRouter()
@@ -29,5 +30,6 @@ urlpatterns = [
     path(r'', include(router.urls)),
     # path(r'', include(customer_router.urls)),
     path("health/", health_check, name="health"),
-    path("token/", CreateTokenView.as_view(), name="token"),
+    # path("token/", CreateTokenView.as_view(), name="token"),
+    path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ]
