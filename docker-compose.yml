@@ -18,6 +18,10 @@ services:
       - .env
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u$$MYSQL_USER -p$$MYSQL_PASSWORD
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
   app:
     container_name: app
     build:
@@ -30,11 +34,54 @@ services:
       - "8000:8000"
       # デバッグ用ポート
       - "8080:8080"
-    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "chmod 755 /code/entrypoint.sh && /code/entrypoint.sh"
     env_file:
-      - ./.env
+      - .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+  mail:
+    container_name: mail
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+  # redis:
+  #   container_name: redis
+  #   image: redis:alpine
+  #   healthcheck:
+  #     test: redis-cli -h 127.0.0.1 ping
+
+
+  # celery:
+  #   container_name: celery
+  #   djangoのDockerfileを指定
+  #   build:
+  #     context: .
+  #     dockerfile: containers/django/Dockerfile
+  #   celery -A r<アプリケーション名> worker -l info
+  #   command: celery -A relationships worker -l info
+  #   volumes:
+  #     - .:/code
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - redis
+
+  # celery-beat:
+  #   container_name: celery-beat
+  #   djangoのDockerfileを指定
+  #   build:
+  #     context: .
+  #     dockerfile: containers/django/Dockerfile
+  #   celery -A <アプリケーション名> beat -l info
+  #   command: celery -A relationships beat -l info
+  #   volumes:
+  #     - .:/code
+  #   env_file:
+  #     - ./.env
+  #   depends_on:
+  #     - redis
 volumes:
   db_data:
   static:

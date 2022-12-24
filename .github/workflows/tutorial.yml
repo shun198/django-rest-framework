@@ -1,0 +1,60 @@
+name: command
+on: [pull_request]
+jobs:
+  # ジョブ名
+  command:
+    name: Use Linux commands
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Show ubuntu details
+        run: lsb_release -a
+      - name: Inspect files before checkout
+        run: ls -la
+      - name: show current directory before checkout
+        run: pwd
+      - name: Inspect root directory files before checkout
+        run: ls -la ~
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Inspect files after checkout
+        run: ls -la
+      - name: show current directory after checkout
+        run: pwd
+      - name: show all branches after checkout
+        run: git branch -a
+      - name: only generate .env
+        run:
+          echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
+          echo "MYSQL_USER=$MYSQL_USER" >> .env
+          echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env
+          echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env
+          echo "SECRET_KEY=$SECRET_KEY" >> .env
+          echo "DJANGO_ALLOWED_HOSTS=$DJANGO_ALLOWED_HOSTS" >> .env
+          echo "DEBUG=$DEBUG" >> .env
+      - name: Inspect files after checkout
+        run: ls -la
+      - name: Look inside .env
+        run: cat .env
+      - name: remove old .env
+        run: rm .env
+      - name: generate .env and include secrets
+        run:
+          echo "MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD" >> .env
+          echo "MYSQL_USER=$MYSQL_USER" >> .env
+          echo "MYSQL_PASSWORD=$MYSQL_PASSWORD" >> .env
+          echo "MYSQL_DATABASE=$MYSQL_DATABASE" >> .env
+          echo "SECRET_KEY=$SECRET_KEY" >> .env
+          echo "DJANGO_ALLOWED_HOSTS=$DJANGO_ALLOWED_HOSTS" >> .env
+          echo "DEBUG=$DEBUG" >> .env
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DJANGO_ALLOWED_HOSTS: ${{ secrets.DJANGO_ALLOWED_HOSTS }}
+          DEBUG: ${{ secrets.DEBUG }}
+      - name: Look inside .env
+        run: cat .env
+      - name: Inspect environment variables
+        uses: hmarr/debug-action@v2

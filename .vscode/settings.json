@@ -1,0 +1,22 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "mysql",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "studydb",
+            "database": "django-db",
+            "username": "django",
+            "password": "django"
+        }
+    ],
+    "python.testing.pytestArgs": [
+        "relationships"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
