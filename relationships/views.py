@@ -2,7 +2,7 @@ import csv, io,datetime
 from rest_framework import viewsets
 from rest_framework.decorators import action,api_view
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
